@@ -1980,7 +1980,7 @@ const SHOOTING_STARS = [
   { startX: 1500, startY: 30, dx: -540, dy: 260, period: 16, duration: 1.1, delay: 5 }
 ]
 
-const TITLE_BG_SHEET = 'images/ui/title-bg-decentracraft-sheet.jpg'
+const TITLE_BG_SHEET = 'images/ui/title-bg-siege-sheet.jpg'
 const TITLE_BG_GRID = 2
 const TITLE_BG_FRAMES = TITLE_BG_GRID * TITLE_BG_GRID
 const TITLE_BG_FRAME_MS = 200
@@ -2215,7 +2215,7 @@ function startScreenOverlay() {
           justifyContent: 'center'
         }}
       >
-        <UiEntity uiTransform={{ width: 840, height: 560 }} uiBackground={{ textureMode: 'stretch', texture: { src: 'images/ui/logo-decentracraft.png' } }} />
+        <UiEntity uiTransform={{ width: 840, height: 560 }} uiBackground={{ textureMode: 'stretch', texture: { src: 'images/ui/logo-siege.png' } }} />
       </UiEntity>
 
       <UiEntity
