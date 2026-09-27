@@ -24,6 +24,7 @@ Manifest module fields:
             pieces whose long side is authored along the wrong axis
   wall      { height, inset }: wall-mounted prop; the layout hangs it at
             `height` metres, `inset` metres in from the wall edge
+  atlas     true to keep every slot on the atlas (whole presets whose UVs span it)
   collide   false to make the piece walk-through (bones, rugs, rubble)
   sealed    true for a wall variant with an opening in its mesh (breach,
             doorway); the layout backs it with an invisible full-tile collider
@@ -350,7 +351,8 @@ for module in manifest['modules']:
             # (world-tiled) surface in Synty's shader; the atlas lookup would be junk.
             parked = rng is not None and (rng[2] < -0.01 or rng[3] > 1.01 or rng[0] < -0.01)
             degenerate = rng is not None and (rng[1] - rng[0]) < 0.05 and (rng[3] - rng[2]) < 0.05
-            use_tiling = tiling is not None and (spread or parked or TILING_SLOTS.search(nm) is not None)
+            # `atlas: true` modules (whole Synty presets, UV-mapped across the full atlas) never tile.
+            use_tiling = tiling is not None and not module.get('atlas') and (spread or parked or TILING_SLOTS.search(nm) is not None)
             slot.material = MAT_TILING if use_tiling else MAT_ATLAS
             if use_tiling and uvl and (degenerate or parked) and not spread:
                 project.append(i)

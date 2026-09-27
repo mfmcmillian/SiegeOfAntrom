@@ -1,0 +1,66 @@
+{
+  "units": {
+    "": {
+      "worker": "models/units/knights/kn-soldier-b.gltf",
+      "melee": "models/units/knights/kn-knight.gltf",
+      "ranged": "models/units/knights/kn-archer.gltf",
+      "healer": "models/units/knights/kn-cleric.gltf",
+      "caster": "models/units/knights/kn-mage.gltf",
+      "siege": "models/kits/knights/kn_catapult.gltf",
+      "titan": "models/units/knights/kn-knight-c.gltf",
+      "hero": "models/units/knights/kn-knight-b.gltf"
+    },
+    "-alien": {
+      "worker": "models/units/elves/el-worker.gltf",
+      "melee": "models/units/elves/el-blade.gltf",
+      "ranged": "models/units/elves/el-ranger.gltf",
+      "healer": "models/units/elves/el-druid.gltf",
+      "caster": "models/units/elves/el-weaver.gltf",
+      "siege": "models/kits/knights/kn_catapult.gltf",
+      "titan": "models/units/elves/el-king.gltf",
+      "hero": "models/units/elves/el-warden.gltf"
+    },
+    "-bio": {
+      "worker": "models/units/undead/ud-ghoul.gltf",
+      "melee": "models/units/undead/ud-skeleton.gltf",
+      "ranged": "models/units/undead/ud-archer.gltf",
+      "healer": "models/units/undead/ud-necro.gltf",
+      "caster": "models/units/undead/ud-sorcerer.gltf",
+      "siege": "models/kits/knights/kn_catapult.gltf",
+      "titan": "models/units/undead/ud-demon.gltf",
+      "hero": "models/units/undead/ud-darklord.gltf"
+    }
+  },
+  "buildings": {
+    "": {
+      "temple": "models/kits/knights/kn_bld_temple.gltf",
+      "supply": "models/kits/knights/kn_bld_supply.gltf",
+      "barracks": "models/kits/knights/kn_bld_barracks.gltf",
+      "techlab": "models/kits/knights/kn_bld_techlab.gltf",
+      "forge": "models/kits/knights/kn_bld_forge.gltf",
+      "airforge": "models/kits/knights/kn_bld_siegeyard.gltf",
+      "fireplace": "models/kits/knights/kn_bld_beacon.gltf",
+      "turret": "models/kits/knights/kn_bld_turret.gltf"
+    },
+    "-alien": {
+      "temple": "models/kits/elves/el_bld_temple.gltf",
+      "supply": "models/kits/elves/el_bld_supply.gltf",
+      "barracks": "models/kits/elves/el_bld_barracks.gltf",
+      "techlab": "models/kits/elves/el_bld_fountain.gltf",
+      "forge": "models/kits/elves/el_bld_forge.gltf",
+      "airforge": "models/kits/elves/el_bld_siegeyard.gltf",
+      "fireplace": "models/kits/elves/el_bld_beacon.gltf",
+      "turret": "models/kits/elves/el_bld_turret.gltf"
+    },
+    "-bio": {
+      "temple": "models/kits/undead/ud_bld_temple.gltf",
+      "supply": "models/kits/undead/ud_bld_supply.gltf",
+      "barracks": "models/kits/undead/ud_bld_crypt2.gltf",
+      "techlab": "models/kits/undead/ud_bld_techlab.gltf",
+      "forge": "models/kits/undead/ud_bld_forge.gltf",
+      "airforge": "models/kits/undead/ud_bld_siegeyard.gltf",
+      "fireplace": "models/kits/undead/ud_bld_beacon.gltf",
+      "turret": "models/kits/undead/ud_bld_turret.gltf"
+    }
+  }
+}

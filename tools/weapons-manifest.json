@@ -78,7 +78,8 @@
       "zip": "POLYGON_Knights_Source_Files_v3.zip",
       "fbx": "Source_Files/FBX/{name}.fbx",
       "palettes": {
-        "base": "Source_Files/Textures/Texture_01.png"
+        "base": "Source_Files/Textures/Texture_01.png",
+        "body": "Source_Files/Textures/Characters_Texture_Blue.png"
       },
       "emission": {},
       "label": "Knights"

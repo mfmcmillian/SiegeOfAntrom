@@ -168,8 +168,9 @@ def extract(zip_name, member):
 
 
 def pack_atlas(pack):
+    """Body texture: a pack's `body` palette when its characters use their own sheet (Knights), else `base`."""
     palettes = pack['palettes']
-    return palettes.get('base') or next(iter(palettes.values()))
+    return palettes.get('body') or palettes.get('base') or next(iter(palettes.values()))
 
 
 # ------------------------------------------------------------------ blender ---
