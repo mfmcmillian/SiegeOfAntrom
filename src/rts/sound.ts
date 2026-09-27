@@ -99,9 +99,13 @@ function playVoice(clip: string, volume: number): void {
   AudioSource.createOrReplace(getVoiceChannel(), { audioClipUrl: clip, playing: true, loop: false, volume })
 }
 
-/** Campaign briefing read by the race advisor. Stops any line already playing. */
-export function playBriefing(missionId: string): void {
-  playVoice(`sounds/voice/briefings/v2/${missionId}.mp3`, 1.35)
+/**
+ * Campaign briefing voice-over. The DecentraCraft recordings were dropped with the
+ * lore rewrite; this stays as the hook for new Siege of Antrom lines
+ * (sounds/voice/briefings/<missionId>.mp3) once they are recorded.
+ */
+export function playBriefing(_missionId: string): void {
+  stopBriefing()
 }
 
 export function stopBriefing(): void {

@@ -1,10 +1,11 @@
 import type { Difficulty, GameMode, RaceId } from './types'
 import type { OpponentSetup } from './state'
 
-// Three single-player campaigns, one per race. Same eight-mission curve
-// (boot camp → open war → finale) so the fights stay familiar; names,
-// briefings, and locked enemy factions are unique. Progress is tracked
-// per campaign so clearing Vanguard does not unlock Aethyr.
+// Three single-player campaigns, one per faction (Knights / Elves / Undead). Same
+// eight-mission curve (boot camp → open war → finale) so the fights stay familiar;
+// names, briefings, and locked enemy factions are unique. Progress is tracked per
+// campaign so clearing the Knights does not unlock the Elves. Mission ids keep the
+// original faction slugs (vanguard / aethyr / myriad) because saves key on them.
 
 export type CampaignWin = 'eliminate' | 'survive'
 
@@ -25,14 +26,14 @@ export type CampaignMission = {
   win: CampaignWin
   /** Survive missions: hold out this many seconds (razing the enemy still wins early). */
   surviveSeconds?: number
-  /** Extra crystal/plasma granted on top of the normal opening bank. */
+  /** Extra crystal/mana granted on top of the normal opening bank. */
   extraMinerals?: number
   extraGas?: number
   /** Pre-built structures so the mission can skip a teaching step. */
   playerBarracks?: boolean
   playerTurrets?: number
   enemyTurrets?: number
-  /** Each hostile starts with a completed barracks / spawning pit / rift gate. */
+  /** Each hostile starts with a completed Barracks / Warden Lodge / Boneyard. */
   enemyBarracks?: boolean
   /** Defaults to FFA. Team mode allies every computer against the player. */
   gameMode?: GameMode
@@ -47,18 +48,18 @@ export type CampaignMeta = {
 export const CAMPAIGN_META: Record<RaceId, CampaignMeta> = {
   human: {
     race: 'human',
-    title: 'The Last Colony',
-    tagline: 'Vanguard was driven from Antrom. Take it back.'
+    title: 'The Broken Crown',
+    tagline: "Antrom's king is dead. Kael carries the crown home."
   },
   alien: {
     race: 'alien',
-    title: 'The Rift War',
-    tagline: 'Aethyr wakes. The younger races will kneel or burn.'
+    title: 'The Long Winter',
+    tagline: 'The Greenwood remembers every axe. Auren answers them.'
   },
   bio: {
     race: 'bio',
-    title: 'The Bloom',
-    tagline: 'Myriad hungers. Every world is a nest.'
+    title: 'The Grave Tide',
+    tagline: 'Szel has emptied the graves. Antrom will fill them again.'
   }
 }
 
@@ -67,12 +68,12 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     id: 'vanguard-1',
     race: 'human',
     act: 1,
-    actName: 'Reclamation',
-    name: 'Dustfall',
-    hook: 'Crystal first. Then the Armory. Then the nest burns.',
+    actName: 'Homecoming',
+    name: 'Ashes of the Rim',
+    hook: 'Crystal first. Then a Barracks. Then the ghouls burn.',
     briefing:
-      'Antrom remembers us as the ones who ran. A Myriad brood nested in the landing struts and turned the old rim into a larder. Take the crystal veins. Raise an Armory. Burn the infestation out before it seeds the next mound. Economy first — an army with empty pockets dies on the march.',
-    objective: 'Destroy every Myriad building.',
+      'The king fell at the Crown and the Legion dug up the dead before the pyres were cold. Ghouls squat in the rim farms and gnaw on what was our harvest. Take the crystal veins. Raise a Barracks. Put every graveyard back in the ground. Economy first; an army with empty pockets starves on the march.',
+    objective: 'Destroy every Undead building.',
     mapId: 'shattered-crown',
     opponents: [{ race: 'bio', difficulty: 'easy' }],
     win: 'eliminate',
@@ -82,12 +83,12 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     id: 'vanguard-2',
     race: 'human',
     act: 1,
-    actName: 'Reclamation',
-    name: 'Foundry Floor',
-    hook: 'The Armory is already on the pad. Fill it.',
+    actName: 'Homecoming',
+    name: 'Standing Orders',
+    hook: 'The Barracks is already built. Fill it.',
     briefing:
-      'Command dropped an Armory on your pad because the Rift is already humming. Aethyr raiders are warping onto stone that used to be ours. Click the Armory. Queue a fighting force. Roll their camp before the Rift Gate finishes a second wave.',
-    objective: 'Destroy every Aethyr building.',
+      'Your Barracks stands because the Greenwood is already moving. Elf rangers cross the border stones as if the treaty died with the king. Click the Barracks. Queue Footmen and Longbowmen. Break their lodge before a second wave of Bladesingers is sung into being.',
+    objective: 'Destroy every Elven building.',
     mapId: 'shattered-crown',
     opponents: [{ race: 'alien', difficulty: 'easy' }],
     win: 'eliminate',
@@ -99,11 +100,11 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     race: 'human',
     act: 2,
     actName: 'Open War',
-    name: 'Rift Line',
+    name: 'The Reliquaries',
     hook: 'They will expand. Scout it. Then break it.',
     briefing:
-      'This Aethyr commander is no training dummy. They will expand, tech, and hit on a timer. Send a scout. Watch the gold stone. Hold Kael on the line until you have the numbers, then fold their Monolith on their own ground. Vision wins wars. Blind armies walk into guns.',
-    objective: 'Destroy every Aethyr building.',
+      'This Warden is no border patrol. She will claim the second reliquary, raise a Moon Shrine and strike on a timer. Send a Peasant to look. Watch the far shrine. Hold Kael on the line until you have the numbers, then fell their Tree Hall on its own roots. Vision wins wars. Blind armies walk into arrows.',
+    objective: 'Destroy every Elven building.',
     mapId: 'twin-reliquaries',
     opponents: [{ race: 'alien', difficulty: 'medium' }],
     win: 'eliminate'
@@ -113,10 +114,10 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     race: 'human',
     act: 2,
     actName: 'Open War',
-    name: 'Two Predators',
-    hook: 'Let them bleed. Then finish whoever still stands.',
+    name: 'Two Wolves',
+    hook: 'Let them bleed each other. Finish whoever still stands.',
     briefing:
-      'Myriad and Aethyr share the ashen causeway and hate each other almost as much as they hate you. They will fight. Let them. Punish the weaker camp first, then finish the survivor before they remember they have a common enemy. Three armies on one road — do not become the one in the middle.',
+      'Elves and Undead share the ashen causeway and hate each other almost as much as they hate the crown. They will fight. Let them. Punish the weaker camp first, then finish the survivor before they remember they have a common enemy. Three armies on one road; do not be the one in the middle.',
     objective: 'Destroy every hostile building.',
     mapId: 'ashen-procession',
     opponents: [
@@ -130,11 +131,11 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     race: 'human',
     act: 2,
     actName: 'Open War',
-    name: 'Skyhaul',
-    hook: 'No bridge. Take the sky, or drown.',
+    name: 'Longships',
+    hook: 'No bridge. Take the water, or drown.',
     briefing:
-      'The Aethyr isle has no land bridge and the sea does not forgive. Raise a Starforge. Train a Skyhauler. Ferry a wave onto their pad — or win it from the air. Ground troops that walk off the rim fall. Load the carrier. Cross the black water. Plant Vanguard steel on gold stone.',
-    objective: 'Destroy every Aethyr building.',
+      "The Elven isle has no ford and the strait does not forgive. Raise a Mage Tower. Build Longships. Ferry a wave onto their shore. Footmen who walk off the sand sink in plate. Load the boats. Cross the black water. Plant the crown's banner in Greenwood soil.",
+    objective: 'Destroy every Elven building.',
     mapId: 'islands',
     opponents: [{ race: 'alien', difficulty: 'medium' }],
     win: 'eliminate',
@@ -145,11 +146,11 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     id: 'vanguard-6',
     race: 'human',
     act: 3,
-    actName: 'The Last Push',
-    name: 'Hold the Line',
-    hook: 'Six minutes. The road is already moving.',
+    actName: 'The Last March',
+    name: 'Hold the Causeway',
+    hook: 'Six minutes. The dead are already walking.',
     briefing:
-      'A Myriad tide is six minutes out along the ashen road. Fortify the Command Post. Keep Kael standing. Weather the waves. Razing the Brood Heart early is a win. Losing your last building is not. Turrets, supply, and a second Armory — this is a siege, not a parade.',
+      'A grave tide is six minutes out along the ashen road. Fortify the Keep. Keep Kael standing. Weather the waves. Razing their Crypt early is a win. Losing your last building is not. Watchtowers, Homesteads and a second Barracks; this is a siege, not a parade.',
     objective: 'Survive 6:00, or destroy the enemy.',
     mapId: 'ashen-procession',
     opponents: [{ race: 'bio', difficulty: 'medium' }],
@@ -165,12 +166,12 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     id: 'vanguard-7',
     race: 'human',
     act: 3,
-    actName: 'The Last Push',
-    name: 'High Command',
-    hook: 'Their Riftlord is on the field. Bring everything.',
+    actName: 'The Last March',
+    name: 'The Warden',
+    hook: 'Auren herself holds the high ground. Bring everything.',
     briefing:
-      'Auren himself holds the high ground. Expect expansions, air, Thunderheads of their own, and a Foundry running hot. Bring a complete army — infantry, guns, sky — or Vanguard will be ground down on the steps of a colony we already lost once. No half-measures. No second exile.',
-    objective: 'Destroy every Aethyr building.',
+      'Warden Auren holds the Crown. Expect a second Tree Hall, Ballistas, Treants and a Runesmith working through the night. Bring a whole army: infantry, bows, catapults, a Champion. Half a host will be ground down on the steps of a castle we already lost once. No half-measures. No second exile.',
+    objective: 'Destroy every Elven building.',
     mapId: 'shattered-crown',
     opponents: [{ race: 'alien', difficulty: 'hard' }],
     win: 'eliminate'
@@ -179,11 +180,11 @@ const VANGUARD_MISSIONS: CampaignMission[] = [
     id: 'vanguard-8',
     race: 'human',
     act: 3,
-    actName: 'The Last Push',
-    name: 'Last Colony',
-    hook: 'They signed a pact. Break both isles, or Antrom is a grave.',
+    actName: 'The Last March',
+    name: 'The Broken Crown',
+    hook: 'Elf and Undead signed a pact. Break both isles, or Antrom is a grave.',
     briefing:
-      'Myriad and Aethyr have struck a pact. Two hard commanders share the storm and will not bleed each other. Their pads are already armed. Claim the sea. Break both isles. If either banner still flies at dawn, the last colony is a story we tell in the dark. Kael did not come home to lose it twice.',
+      'The Warden and the Dark Lord have struck a pact. Two hard commanders share the storm and will not bleed each other. Their shores are already fortified. Claim the sea. Break both isles. If either banner still flies at dawn, the Kingdom of Antrom is a story told in the dark. Kael did not come home to lose it twice.',
     objective: 'Destroy both allied commanders.',
     mapId: 'colony-isles',
     opponents: [
@@ -203,12 +204,12 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     id: 'aethyr-1',
     race: 'alien',
     act: 1,
-    actName: 'Awakening',
-    name: 'First Light',
-    hook: 'Sacred stone. Squatters. Open the Gate.',
+    actName: 'The Waking Wood',
+    name: 'First Snow',
+    hook: 'Harvest, build, and drive the woodcutters out.',
     briefing:
-      'Vanguard squatters raised a Command Post on stone that remembers the first suns. Gather crystal. Open a Rift Gate. Erase their camp. The younger race will learn the old laws — starting with the one that says this world was never theirs. Economy first. A Rift without crystal is a closed door.',
-    objective: 'Destroy every Vanguard building.',
+      "The king's death has emboldened his lords. Knights cut the old oaks for siege timber and call it lawful. Gather crystal and mana. Raise a Warden Lodge. Send Bladesingers to remind them what the Greenwood does to axes. Grow slowly and you die slowly; the wood rewards the bold.",
+    objective: 'Destroy every Knights building.',
     mapId: 'twin-reliquaries',
     opponents: [{ race: 'human', difficulty: 'easy' }],
     win: 'eliminate',
@@ -218,12 +219,12 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     id: 'aethyr-2',
     race: 'alien',
     act: 1,
-    actName: 'Awakening',
-    name: 'Gate Open',
-    hook: 'The Gate already stands. Fill it with Sentinels.',
+    actName: 'The Waking Wood',
+    name: 'Roots and Bone',
+    hook: 'The Lodge stands. Fill it, and burn the Boneyard.',
     briefing:
-      'A Rift Gate already stands on the reliquary floor. Myriad grubs are chewing the outer pylons like they own the light. Click the Gate. Train Sentinels. Burn the nest before the Brood Heart seeds a second mound.',
-    objective: 'Destroy every Myriad building.',
+      'A Boneyard has been dug at the far reliquary and the trees there have stopped singing. Your Warden Lodge already stands. Click it. Queue Bladesingers and Rangers. Cut the skeletons down and burn the Crypt before the Necromancer raises what he has buried.',
+    objective: 'Destroy every Undead building.',
     mapId: 'twin-reliquaries',
     opponents: [{ race: 'bio', difficulty: 'easy' }],
     win: 'eliminate',
@@ -236,10 +237,10 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     act: 2,
     actName: 'Judgment',
     name: 'Trespassers',
-    hook: 'A Warmaster has dug in. Scout it. Fold it.',
+    hook: 'A real lord. Expand, scout, then fell the Keep.',
     briefing:
-      'A Vanguard Warmaster has dug in on stolen ground. They will expand, tech, and hit on a timer. Send a Seeker. Watch their Foundry. Hold Auren on the line until the numbers favor the Rift, then fold their camp. Vision wins wars. Blind Avatars walk into guns.',
-    objective: 'Destroy every Vanguard building.',
+      'This Lord Commander expands, researches and marches on a timer. Send a Tender to look. Take the second grove before he takes the second farm. Hold Auren back until the Rangers and Druids outnumber his Longbowmen, then fell his Keep on its own foundations. Patience is a weapon. So is a Ballista.',
+    objective: 'Destroy every Knights building.',
     mapId: 'shattered-crown',
     opponents: [{ race: 'human', difficulty: 'medium' }],
     win: 'eliminate'
@@ -249,10 +250,10 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     race: 'alien',
     act: 2,
     actName: 'Judgment',
-    name: 'Split Sky',
-    hook: 'Steel and flesh will fight. Let them. Then end it.',
+    name: 'Split Road',
+    hook: 'Knights and Undead on one causeway. Choose your moment.',
     briefing:
-      'Vanguard steel and Myriad flesh share the ashen causeway and will tear each other open. Let them. Punish the weaker camp first, then finish whoever still stands before they remember the Rift is the older enemy. Three banners on one road — do not become the one in the middle.',
+      'Knights and the Legion both march the ashen causeway and will collide long before they reach you. Let them. Strike the camp that is losing, then the one that is tired. Three armies on one road; make sure the Greenwood is the one that arrives last and leaves first.',
     objective: 'Destroy every hostile building.',
     mapId: 'ashen-procession',
     opponents: [
@@ -266,11 +267,11 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     race: 'alien',
     act: 2,
     actName: 'Judgment',
-    name: 'Void Crossing',
-    hook: 'Open water. Warp a barge, or the nest lives.',
+    name: 'Moon Skiffs',
+    hook: 'No bridge. Sail, or stay.',
     briefing:
-      'The Myriad nest sits across open water and the void does not carry walkers. Raise a Sanctum. Warp a Riftbarge. Drop on their island — or scour it from the air. Walk off the rim and you fall. Load the barge. Cross. Plant gold light in living soil.',
-    objective: 'Destroy every Myriad building.',
+      'The Legion has claimed the isles and left nothing living on them. There is no ford. Raise a Moon Shrine. Build Moon Skiffs. Load Bladesingers and Rangers and cross under the moon. Elves who step off the sand drown like anyone else. Land, strike, and return for the next wave.',
+    objective: 'Destroy every Undead building.',
     mapId: 'islands',
     opponents: [{ race: 'bio', difficulty: 'medium' }],
     win: 'eliminate',
@@ -282,10 +283,10 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     race: 'alien',
     act: 3,
     actName: 'Ascension',
-    name: 'Hold the Spire',
-    hook: 'Six minutes. Their guns are already rolling.',
+    name: 'Hold the Tree Hall',
+    hook: 'Six minutes. The knights ride at dawn.',
     briefing:
-      'Vanguard guns are six minutes from the Monolith. Fortify the reliquary. Keep Auren standing. Weather the barrage. Razing their Command Post early is a win. Losing the last pylon is not. Spires, supply, and a second Gate — this is a siege, not a sermon.',
+      'The knights ride at dawn and dawn is six minutes away. Fortify the Tree Hall. Keep Auren alive. Archer Platforms, Bowers and a second Lodge; the Greenwood has endured longer sieges than this. Razing his Keep early is a win. Losing your last building is not.',
     objective: 'Survive 6:00, or destroy the enemy.',
     mapId: 'twin-reliquaries',
     opponents: [{ race: 'human', difficulty: 'medium' }],
@@ -302,11 +303,11 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     race: 'alien',
     act: 3,
     actName: 'Ascension',
-    name: 'Warmaster',
-    hook: 'Kael himself holds the field. Bring the old weapons.',
+    name: 'Lord Commander',
+    hook: 'Kael holds the Crown. Bring the whole wood.',
     briefing:
-      'Kael himself holds the field. Expect Dreadnoughts, Thunderheads, and a Foundry running hot. Bring Avatars and Solar Arks, or the Rift closes for good and Aethyr sleeps another age under their concrete. No half-measures. The younger race came back armed.',
-    objective: 'Destroy every Vanguard building.',
+      'Lord Commander Kael holds the Crown with everything Antrom has left: Catapults, Court Mages, Champions and a Blacksmith working through the night. Bring a whole army: blades, bows, Druids, Ballistas, a Treant. The Greenwood does not get a second spring if this one fails.',
+    objective: 'Destroy every Knights building.',
     mapId: 'shattered-crown',
     opponents: [{ race: 'human', difficulty: 'hard' }],
     win: 'eliminate'
@@ -316,10 +317,10 @@ const AETHYR_MISSIONS: CampaignMission[] = [
     race: 'alien',
     act: 3,
     actName: 'Ascension',
-    name: 'Twin Suns',
-    hook: 'They stand together. End both, or the Rift closes.',
+    name: 'The Long Winter',
+    hook: 'Crown and Crypt have made peace. End both, or the wood freezes.',
     briefing:
-      'Vanguard and Myriad stand together. Two hard commanders, one war — they will not bleed each other. Their rift isles are already armed. End both in one night. If either banner still flies at dawn, the Rift closes and Aethyr becomes a story the stone tells itself. Auren did not wake to kneel.',
+      'Kael and Szel have struck a pact. Two hard commanders share the storm and will not bleed each other. Their shores are fortified. Claim the sea. Break both isles. If either banner still flies at dawn, the long winter never ends and the Greenwood is firewood. Auren has waited three hundred years for this morning.',
     objective: 'Destroy both allied commanders.',
     mapId: 'rift-isles',
     opponents: [
@@ -339,12 +340,12 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-1',
     race: 'bio',
     act: 1,
-    actName: 'First Brood',
-    name: 'First Taste',
-    hook: 'Meat on living soil. Grow. Eat. Repeat.',
+    actName: 'The Waking Dead',
+    name: 'First Grave',
+    hook: 'Harvest. Dig a Boneyard. Eat the farm.',
     briefing:
-      'Vanguard meat has landed on living soil and called it a colony. Grow a Spawning Pit. Birth Maulers. Crack their Command Post. The Broodmother wants a first harvest, and harvests begin with crystal. Economy first — a starved brood is just a stain.',
-    objective: 'Destroy every Vanguard building.',
+      'Szel has opened the barrows of the wastes and the dead remember how to walk. A Knights outpost farms the edge of the bloom and thinks the ghouls are a rumor. Gather crystal and mana. Dig a Boneyard. Show them what a rumor does to a Homestead. The Legion grows by what it kills.',
+    objective: 'Destroy every Knights building.',
     mapId: 'bloom-wastes',
     opponents: [{ race: 'human', difficulty: 'easy' }],
     win: 'eliminate',
@@ -354,12 +355,12 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-2',
     race: 'bio',
     act: 1,
-    actName: 'First Brood',
-    name: 'Nest Rising',
-    hook: 'The Pit already beats. Fill it with teeth.',
+    actName: 'The Waking Dead',
+    name: 'Rising Bone',
+    hook: 'The Boneyard is dug. Fill it, and fell the Tree Hall.',
     briefing:
-      'A Spawning Pit already beats under the bloom. Aethyr pylons are seeding the far ridge like gold weeds. Click the Pit. Birth Maulers. Swarm the Monolith before their Rift Gate finishes a second Sentinel.',
-    objective: 'Destroy every Aethyr building.',
+      'Elves have come to burn the wastes clean and their Tree Hall has already taken root. Your Boneyard is dug. Click it. Queue Skeletons and Bone Archers. Fell their hall before the Rangers learn where the barrows sleep.',
+    objective: 'Destroy every Elven building.',
     mapId: 'bloom-wastes',
     opponents: [{ race: 'alien', difficulty: 'easy' }],
     win: 'eliminate',
@@ -370,12 +371,12 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-3',
     race: 'bio',
     act: 2,
-    actName: 'The Spread',
+    actName: 'The Spreading Dark',
     name: 'The Hunt',
-    hook: 'They will expand. Scout it. Drown it.',
+    hook: 'A real lord. Scout, expand, then bury the Keep.',
     briefing:
-      'This Vanguard commander will expand, tech, and hit on a timer. Scout with Grubs. Watch their Foundry. Hold Szel until the swarm is thick, then eat the camp. Vision wins wars. Blind broods walk into guns and come home as meat.',
-    objective: 'Destroy every Vanguard building.',
+      'This Lord Commander hunts, expands and strikes on a timer. Send a Ghoul to look. Claim the second barrow. Hold Szel back until the Skeletons outnumber the Footmen two to one, then bury his Keep. Bones are cheap. Time is not.',
+    objective: 'Destroy every Knights building.',
     mapId: 'shattered-crown',
     opponents: [{ race: 'human', difficulty: 'medium' }],
     win: 'eliminate'
@@ -384,11 +385,11 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-4',
     race: 'bio',
     act: 2,
-    actName: 'The Spread',
-    name: 'Two Herds',
-    hook: 'Steel and gold will fight. Then we eat.',
+    actName: 'The Spreading Dark',
+    name: 'Two Feasts',
+    hook: 'Knights and Elves on one causeway. Eat the loser first.',
     briefing:
-      'Vanguard and Aethyr graze the ashen causeway and will open each other. Let them. Punish the weaker herd first, then consume whoever is left before they remember the Bloom is the older hunger. Three herds on one road — do not become the one in the middle.',
+      'Knights and Elves march the ashen causeway together and hate each other only slightly less than they fear you. Let them fight. Every corpse is a recruit. Finish the weaker camp, then the tired one, and raise both onto your side of the ledger.',
     objective: 'Destroy every hostile building.',
     mapId: 'ashen-procession',
     opponents: [
@@ -401,12 +402,12 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-5',
     race: 'bio',
     act: 2,
-    actName: 'The Spread',
-    name: 'Across the Water',
-    hook: 'No bridge. Hatch a wing, or the gold lives.',
+    actName: 'The Spreading Dark',
+    name: 'Funeral Barges',
+    hook: 'No bridge. The dead do not swim, so they sail.',
     briefing:
-      'The Aethyr isle has no land bridge and water is a mouth that does not chew for us. Grow a Grand Nest. Hatch a Broodwing. Drop the swarm on their pad — or take the sky. Walk off the rim and you drown. Load the wing. Cross. Plant the Bloom on gold stone.',
-    objective: 'Destroy every Aethyr building.',
+      'The Elves hold the isles and the strait between is deep. Raise a Dark Sanctum. Build Funeral Barges. Load Skeletons and Necromancers and drift across under the fog. Ghouls who wade in sink. Land at the shore, break the lodge, and let the barge return for the next wave.',
+    objective: 'Destroy every Elven building.',
     mapId: 'islands',
     opponents: [{ race: 'alien', difficulty: 'medium' }],
     win: 'eliminate',
@@ -417,11 +418,11 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-6',
     race: 'bio',
     act: 3,
-    actName: 'The Swarm',
-    name: 'Hold the Heart',
-    hook: 'Six minutes. Their steel is already rolling.',
+    actName: 'The Grave Tide',
+    name: 'Hold the Crypt',
+    hook: 'Six minutes. The knights come to burn the barrows.',
     briefing:
-      'Vanguard guns are six minutes from the Brood Heart. Fortify the wastes. Keep Szel alive. Weather the steel. Eating their Command Post early is a win. Losing the last mound is not. Thorns, supply, and a second Pit — this is a siege, not a feast.',
+      'The Knights are six minutes from the barrows with torches and Clerics. Fortify the Crypt. Keep Szel standing. Gargoyle Spires, Mausoleums and a second Boneyard; make them pay for every step. Razing his Keep early is a win. Losing your last building is not.',
     objective: 'Survive 6:00, or destroy the enemy.',
     mapId: 'bloom-wastes',
     opponents: [{ race: 'human', difficulty: 'medium' }],
@@ -437,12 +438,12 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-7',
     race: 'bio',
     act: 3,
-    actName: 'The Swarm',
-    name: 'Golden Prey',
-    hook: 'A Riftlord holds the high ground. Drown the light.',
+    actName: 'The Grave Tide',
+    name: 'The Warden Falls',
+    hook: 'Auren holds the Reliquaries. Bring every bone.',
     briefing:
-      'A Riftlord holds the high ground. Expect Avatars, Solar Arks, and a Sanctum running hot. Drown them in Behemoths or the Bloom dies on gold stone and Szel becomes a dry husk in a pretty ruin. No half-swarms. The old light came back armed.',
-    objective: 'Destroy every Aethyr building.',
+      'Warden Auren holds both reliquaries with Treants, Ballistas and Starweavers. Bring the whole Legion: Skeletons, Bone Archers, Sorcerers, Plague Catapults, a Demon. The Greenwood is the last living thing between Szel and the Crown. Make it stop living.',
+    objective: 'Destroy every Elven building.',
     mapId: 'twin-reliquaries',
     opponents: [{ race: 'alien', difficulty: 'hard' }],
     win: 'eliminate'
@@ -451,11 +452,11 @@ const MYRIAD_MISSIONS: CampaignMission[] = [
     id: 'myriad-8',
     race: 'bio',
     act: 3,
-    actName: 'The Swarm',
-    name: 'The Feast',
-    hook: 'They allied against the Bloom. Eat both, or starve.',
+    actName: 'The Grave Tide',
+    name: 'The Grave Tide',
+    hook: 'Crown and Wood have made peace. Bury both, or be buried.',
     briefing:
-      'Vanguard steel and Aethyr gold have allied against the Bloom. Two hard commanders share the last blackstone isles and will not fight each other. Their pads are already armed. Eat both. If either banner still flies at dawn, the swarm starves and Antrom goes quiet. Szel did not bloom to go hungry.',
+      'Kael and Auren have struck a pact. Two hard commanders share the storm and will not bleed each other. Their shores are fortified. Claim the sea. Break both isles. If either banner still flies at dawn, the Legion goes back into the ground for good. Szel did not climb out of the grave to return to it.',
     objective: 'Destroy both allied commanders.',
     mapId: 'blackstone-isles',
     opponents: [
@@ -583,7 +584,7 @@ export function getCampaignMission(id: string | undefined): CampaignMission | un
   return ALL_MISSIONS.find((mission) => mission.id === id)
 }
 
-/** Per-race act art so a Rift Gate briefing never shows Vanguard marines. */
+/** Per-race act art so an Undead briefing never shows knights. */
 export function getCampaignBriefingArt(mission: CampaignMission): string {
   const index = MISSIONS_BY_RACE[mission.race].findIndex((entry) => entry.id === mission.id)
   return `images/ui/briefings/${mission.race}-m${Math.max(1, index + 1)}.jpg`

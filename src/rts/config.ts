@@ -9,7 +9,7 @@ export const CONFIG = {
   startSupplyCap: 0,
   workerMineTime: 3,
   workerCarryAmount: 10,
-  /** Rich (gold crystal / cryo plasma) nodes: workers haul this much more per trip, and the node holds more. */
+  /** Rich (gold vein / moonwell) nodes: workers haul this much more per trip, and the node holds more. */
   richYieldMultiplier: 1.5,
   workerMoveSpeed: 2.5,
   // Workers can fight when commanded, but poorly - pulling them is a last resort.
@@ -61,7 +61,7 @@ export const MODEL_TRANSFORMS = {
 // Two-resource economy (internal keys stay minerals/gas; display names are original lore).
 export const RESOURCE_LABELS: Record<ResourceKind, string> = {
   minerals: 'crystal',
-  gas: 'plasma'
+  gas: 'mana'
 }
 
 export const RESOURCE_DEFINITIONS: Record<ResourceKind, ResourceDefinition> = {
@@ -247,7 +247,7 @@ export type ResourceField = {
   center: Vector3
   count: number
   radius: number
-  /** Rich fields (map center): gold crystals / cryo plasma with bigger yields. */
+  /** Rich fields (map center): gold veins / moonwells with bigger yields. */
   rich?: boolean
 }
 

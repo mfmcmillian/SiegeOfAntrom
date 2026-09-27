@@ -286,7 +286,7 @@ export const MAPS: MapDefinition[] = [
   {
     id: 'bloom-wastes',
     name: 'Bloom Wastes',
-    tagline: 'The same rim as the Crown, now living soil. Myriad home ground — six starts, a rich center, and amber veins underfoot.',
+    tagline: 'The same rim as the Crown, now living soil. Undead home ground — six starts, a rich center, and amber veins underfoot.',
     thumbnail: 'images/maps/bloom-wastes.jpg',
     maxPlayers: 6,
     anchors: MAP_ANCHORS,
@@ -297,7 +297,7 @@ export const MAPS: MapDefinition[] = [
   {
     id: 'blackstone-isles',
     name: 'Blackstone Isles',
-    tagline: 'Myriad finale. Blackstone pads over a lava sea. No land routes — ferry or fly.',
+    tagline: 'Undead finale. Black basalt isles over a lava sea. No land routes; cross by barge.',
     thumbnail: 'images/maps/blackstone-isles.jpg',
     maxPlayers: 6,
     anchors: ISLANDS_ANCHORS,
@@ -309,7 +309,7 @@ export const MAPS: MapDefinition[] = [
   {
     id: 'colony-isles',
     name: 'Colony Isles',
-    tagline: 'Vanguard finale. Steel colony pads in a storm sea. Same island layout — ferry or fly.',
+    tagline: 'Knights finale. Storm-lashed isles off the Antrom coast. Same island layout; cross by longship.',
     thumbnail: 'images/maps/colony-isles.jpg',
     maxPlayers: 6,
     anchors: ISLANDS_ANCHORS,
@@ -321,7 +321,7 @@ export const MAPS: MapDefinition[] = [
   {
     id: 'rift-isles',
     name: 'Rift Isles',
-    tagline: 'Aethyr finale. Gold-crystal pads over a violet rift sea. Same island layout — ferry or fly.',
+    tagline: 'Elven finale. Moonlit isles on a violet sea. Same island layout; cross by skiff.',
     thumbnail: 'images/maps/rift-isles.jpg',
     maxPlayers: 6,
     anchors: ISLANDS_ANCHORS,
