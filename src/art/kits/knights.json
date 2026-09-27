@@ -304,6 +304,24 @@
         0.954
       ],
       "tris": 1152
+    },
+    "kn_catapult": {
+      "src": "models/kits/knights/kn_catapult.gltf",
+      "size": [
+        2.766,
+        3.463,
+        5.439
+      ],
+      "tris": 7466
+    },
+    "kn_trebuchet": {
+      "src": "models/kits/knights/kn_trebuchet.gltf",
+      "size": [
+        5.198,
+        5.841,
+        12.027
+      ],
+      "tris": 6248
     }
   }
 }

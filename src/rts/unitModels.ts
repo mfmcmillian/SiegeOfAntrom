@@ -1,4 +1,4 @@
-import { ColliderLayer, Entity, GltfContainer, Material, MaterialTransparencyMode, MeshRenderer, Transform, VisibilityComponent, engine } from '@dcl/sdk/ecs'
+import { Animator, ColliderLayer, Entity, GltfContainer, Material, MaterialTransparencyMode, MeshRenderer, Transform, VisibilityComponent, engine } from '@dcl/sdk/ecs'
 import { Color4, Quaternion, Vector3 } from '@dcl/sdk/math'
 import { isPlayerAlly } from './state'
 import { RaceId, ResourceKind, Team } from './types'
@@ -70,6 +70,8 @@ interface UnitRig {
   siegeCannon?: Entity
   /** GLB units: model top in meters (primitive-part scan can't see inside a GLB). */
   topYOverride?: number
+  /** Skinned bodies: the entity carrying the Animator and the clip each game state plays. */
+  skinned?: { model: Entity; clips: Record<UnitAnimState, string> }
   state: UnitAnimState
   time: number
   profiles: Record<UnitAnimState, MotionProfile>
@@ -133,6 +135,8 @@ export function getTeamColor(team: Team): Color4 {
 }
 
 const STILL: MotionProfile = { amplitude: 0.03, speed: 2, tilt: 0, spin: 0, lunge: 0 }
+/** No procedural motion at all (skinned bodies animate themselves). */
+const NONE: MotionProfile = { amplitude: 0, speed: 0, tilt: 0, spin: 0, lunge: 0 }
 
 type PartOptions = {
   emissive?: Color4
@@ -186,6 +190,40 @@ type GlbUnit = {
   yaw: number
   /** Model top in meters at bake scale (anchors the upgrade insignia above the silhouette). */
   topY: number
+  /** Runtime scale; defaults to GLB_ROLE_SCALE for the role. */
+  scale?: number
+  /**
+   * Skinned body (tools/export-enemy-bodies.py): real Animator clips replace the procedural
+   * bob for each game state. Bodies without this are static meshes moved by the rig.
+   */
+  clips?: Record<UnitAnimState, string>
+}
+
+/** Clip names every body out of tools/export-enemy-bodies.py carries (Synty Base Locomotion + Sword Combat). */
+const SYNTY_MELEE_CLIPS: Record<UnitAnimState, string> = {
+  idle: 'A_MOD_BL_Idle_Standing_Masc',
+  walk: 'A_MOD_BL_Walk_F_Masc',
+  talk: 'A_MOD_BL_Idle_Standing_Masc',
+  attack: 'attack_light',
+  impact: 'hit'
+}
+const SYNTY_BOW_CLIPS: Record<UnitAnimState, string> = { ...SYNTY_MELEE_CLIPS, attack: 'shoot' }
+const SYNTY_CAST_CLIPS: Record<UnitAnimState, string> = { ...SYNTY_MELEE_CLIPS, attack: 'cast' }
+
+/** Knights bodies are ~1.9 m tall at bake scale; this reads right next to the Fantasy Kingdom buildings. */
+const KNIGHT_SCALE = 1.15
+
+const KNIGHTS: Partial<Record<UnitRole, GlbUnit>> = {
+  worker: { src: 'models/units/knights/kn-soldier-b.gltf', yaw: 0, topY: 1.84, scale: KNIGHT_SCALE, clips: SYNTY_MELEE_CLIPS },
+  melee: { src: 'models/units/knights/kn-knight.gltf', yaw: 0, topY: 1.93, scale: KNIGHT_SCALE, clips: SYNTY_MELEE_CLIPS },
+  ranged: { src: 'models/units/knights/kn-archer.gltf', yaw: 0, topY: 1.88, scale: KNIGHT_SCALE, clips: SYNTY_BOW_CLIPS },
+  healer: { src: 'models/units/knights/kn-cleric.gltf', yaw: 0, topY: 1.84, scale: KNIGHT_SCALE, clips: SYNTY_CAST_CLIPS },
+  caster: { src: 'models/units/knights/kn-mage.gltf', yaw: 0, topY: 1.88, scale: KNIGHT_SCALE, clips: SYNTY_CAST_CLIPS },
+  // Fantasy Kingdom catapult: a static engine, so the rig's roll/lunge profile still drives it.
+  siege: { src: 'models/kits/knights/kn_catapult.gltf', yaw: 0, topY: 3.46, scale: 0.7 },
+  // Placeholder until a proper giant is exported: the tallest knight, scaled up as a champion.
+  titan: { src: 'models/units/knights/kn-knight-c.gltf', yaw: 0, topY: 1.88, scale: 2.1, clips: SYNTY_MELEE_CLIPS },
+  hero: { src: 'models/units/knights/kn-knight-b.gltf', yaw: 0, topY: 1.85, scale: 1.5, clips: SYNTY_MELEE_CLIPS }
 }
 
 /**
@@ -210,21 +248,16 @@ const GLB_ROLE_SCALE: Record<UnitRole, number> = {
 }
 
 const GLB_UNITS: Partial<Record<RaceId, Partial<Record<UnitRole, GlbUnit>>>> = {
+  // `human` is the Knights faction (Synty Knights + Fantasy Kingdom). The old Meshy
+  // sci-fi set stays on disk under models/units/human for the air roster.
   human: {
-    worker: { src: 'models/units/human/worker.glb', yaw: 0, topY: 0.95 },
-    melee: { src: 'models/units/human/melee.glb', yaw: 0, topY: 1.35 },
-    ranged: { src: 'models/units/human/ranged.glb', yaw: 0, topY: 1.35 },
-    healer: { src: 'models/units/human/healer.glb', yaw: 0, topY: 1.3 },
-    caster: { src: 'models/units/human/caster.glb', yaw: 0, topY: 1.45 },
+    ...KNIGHTS,
     antiAir: { src: 'models/units/human/antiAir.glb', yaw: 0, topY: 1.4 },
     // Meshy vehicles came out facing -X (glTF), which mirrors to +X in DCL's
     // left-handed space; -90 yaw turns them onto the game's +Z forward.
     flyer: { src: 'models/units/human/flyer.glb', yaw: -90, topY: 0.75 },
     transport: { src: 'models/units/human/transport.glb', yaw: -90, topY: 1.5 },
-    heavyAir: { src: 'models/units/human/heavyAir.glb', yaw: -90, topY: 1.6 },
-    siege: { src: 'models/units/human/siege.glb', yaw: -90, topY: 1.45 },
-    titan: { src: 'models/units/human/titan.glb', yaw: 0, topY: 2.6 },
-    hero: { src: 'models/units/human/hero.glb', yaw: 0, topY: 1.9 }
+    heavyAir: { src: 'models/units/human/heavyAir.glb', yaw: -90, topY: 1.6 }
   },
   alien: {
     worker: { src: 'models/units/alien/worker.glb', yaw: 0, topY: 0.9 },
@@ -292,7 +325,7 @@ function glbProfiles(role: UnitRole): Record<UnitAnimState, MotionProfile> {
 }
 
 function buildGlbUnit(rig: UnitRig, config: GlbUnit, race: RaceId, role: UnitRole): void {
-  const boost = GLB_ROLE_SCALE[role] ?? 1
+  const boost = config.scale ?? GLB_ROLE_SCALE[role] ?? 1
   const model = engine.addEntity()
   Transform.create(model, {
     parent: rig.bodyRoot,
@@ -306,7 +339,16 @@ function buildGlbUnit(rig: UnitRig, config: GlbUnit, race: RaceId, role: UnitRol
   })
   rig.parts.push(model)
   rig.topYOverride = config.topY * boost
-  rig.profiles = glbProfiles(role)
+  if (config.clips) {
+    // Real skeletal clips: the body root stays still and the Animator does the walking.
+    Animator.create(model, {
+      states: [{ clip: config.clips.idle, playing: true, loop: true, speed: 1, weight: 1 }]
+    })
+    rig.skinned = { model, clips: config.clips }
+    rig.profiles = { idle: NONE, walk: NONE, talk: NONE, attack: NONE, impact: NONE }
+  } else {
+    rig.profiles = glbProfiles(role)
+  }
 
   // Hover altitudes for air units, lifted a touch since the craft grew.
   if (role === 'flyer') rig.baseHeight = 2.4
@@ -2524,6 +2566,12 @@ export function setUnitAnimation(root: Entity, clipName: string): void {
     // Restart the clock so choreographed cycles (step-then-swing) begin on
     // their first beat instead of joining mid-swing.
     rig.time = 0
+    if (rig.skinned) {
+      const clip = rig.skinned.clips[next]
+      const animator = Animator.getMutable(rig.skinned.model)
+      // One state at a time; every clip loops so a held attack keeps swinging.
+      animator.states = [{ clip, playing: true, loop: true, speed: 1, weight: 1 }]
+    }
   }
 }
 

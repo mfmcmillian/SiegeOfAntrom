@@ -23,5 +23,20 @@
     "path": "models/units/knights/kn-knight-c.gltf",
     "height": 1.884,
     "tris": 2848
+  },
+  "kn-archer": {
+    "path": "models/units/knights/kn-archer.gltf",
+    "height": 1.879,
+    "tris": 2651
+  },
+  "kn-cleric": {
+    "path": "models/units/knights/kn-cleric.gltf",
+    "height": 1.837,
+    "tris": 3236
+  },
+  "kn-mage": {
+    "path": "models/units/knights/kn-mage.gltf",
+    "height": 1.884,
+    "tris": 2942
   }
 }

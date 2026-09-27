@@ -248,6 +248,27 @@
           "SourceFiles/Animations/Polygon/Neutral/Locomotion/Run/A_POLY_GBL_Run_F_Neut.fbx"
         ]
       }
+    },
+    {
+      "id": "kn-archer",
+      "realm": "knights",
+      "pack": "kn",
+      "fbx": "Character_Soldier_01",
+      "weapon": "kn-bow"
+    },
+    {
+      "id": "kn-cleric",
+      "realm": "knights",
+      "pack": "kn",
+      "fbx": "Character_Soldier_02",
+      "weapon": "fk-staff-02"
+    },
+    {
+      "id": "kn-mage",
+      "realm": "knights",
+      "pack": "kn",
+      "fbx": "Character_Knight_03",
+      "weapon": "fk-staff-05"
     }
   ],
   "weapons": [
@@ -272,6 +293,14 @@
       "mesh": "SM_Wep_Staff_01",
       "palette": "base",
       "class": "club"
+    },
+    {
+      "id": "kn-bow",
+      "pack": "fk",
+      "mesh": "SM_Prop_Bow_01",
+      "palette": "base",
+      "class": "bow",
+      "hand": "Hand_L"
     }
   ]
 }

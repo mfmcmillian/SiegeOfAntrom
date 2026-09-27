@@ -18,3 +18,6 @@ yarn-error.log*
 **/.env.local
 .vercel/
 .tmp-gdd-*
+
+# python
+__pycache__/
