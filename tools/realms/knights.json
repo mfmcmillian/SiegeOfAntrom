@@ -178,6 +178,38 @@
     {
       "id": "kn_trebuchet",
       "fbx": "SM_Wep_Trebuchet_01_Static"
+    },
+    {
+      "id": "kn_bld_temple",
+      "fbx": "SM_Bld_Preset_Church_01_A_Optimized"
+    },
+    {
+      "id": "kn_bld_supply",
+      "fbx": "SM_Bld_Preset_House_02_A_Optimized"
+    },
+    {
+      "id": "kn_bld_barracks",
+      "fbx": "SM_Bld_Preset_Stables_01_Optimized"
+    },
+    {
+      "id": "kn_bld_techlab",
+      "fbx": "SM_Bld_Preset_House_09_A_Optimized"
+    },
+    {
+      "id": "kn_bld_forge",
+      "fbx": "SM_Bld_Preset_Blacksmith_01_Optimized"
+    },
+    {
+      "id": "kn_bld_siegeyard",
+      "fbx": "SM_Bld_Tent_Large_01"
+    },
+    {
+      "id": "kn_bld_beacon",
+      "fbx": "SM_Prop_Camp_Brazier_01"
+    },
+    {
+      "id": "kn_bld_turret",
+      "fbx": "SM_Bld_Wooden_Tower_01"
     }
   ]
 }

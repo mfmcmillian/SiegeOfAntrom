@@ -322,6 +322,78 @@
         12.027
       ],
       "tris": 6248
+    },
+    "kn_bld_forge": {
+      "src": "models/kits/knights/kn_bld_forge.gltf",
+      "size": [
+        12.698,
+        10.983,
+        10.338
+      ],
+      "tris": 19293
+    },
+    "kn_bld_siegeyard": {
+      "src": "models/kits/knights/kn_bld_siegeyard.gltf",
+      "size": [
+        9.676,
+        4.867,
+        7.751
+      ],
+      "tris": 3046
+    },
+    "kn_bld_beacon": {
+      "src": "models/kits/knights/kn_bld_beacon.gltf",
+      "size": [
+        0.554,
+        0.593,
+        0.554
+      ],
+      "tris": 540
+    },
+    "kn_bld_turret": {
+      "src": "models/kits/knights/kn_bld_turret.gltf",
+      "size": [
+        4.267,
+        6.658,
+        3.583
+      ],
+      "tris": 5276
+    },
+    "kn_bld_techlab": {
+      "src": "models/kits/knights/kn_bld_techlab.gltf",
+      "size": [
+        8.557,
+        10.907,
+        8.613
+      ],
+      "tris": 17889
+    },
+    "kn_bld_barracks": {
+      "src": "models/kits/knights/kn_bld_barracks.gltf",
+      "size": [
+        8.029,
+        10.49,
+        6.983
+      ],
+      "tris": 12628
+    },
+    "kn_bld_temple": {
+      "src": "models/kits/knights/kn_bld_temple.gltf",
+      "size": [
+        6.448,
+        11.74,
+        10.917
+      ],
+      "tris": 19284
+    },
+    "kn_bld_supply": {
+      "src": "models/kits/knights/kn_bld_supply.gltf",
+      "size": [
+        6.448,
+        9.24,
+        8.073
+      ],
+      "tris": 9751
     }
   }
 }

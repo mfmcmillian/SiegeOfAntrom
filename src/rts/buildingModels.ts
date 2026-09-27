@@ -19,16 +19,29 @@ import type { BuildableKind, RaceId } from './types'
  * build; anything missing falls back to the primitive-part version below.
  * yaw turns the model so its front door faces the building's +Z.
  */
-const GLB_BUILDINGS: Record<RaceId, Partial<Record<BuildableKind, { src: string; yaw?: number; scale?: Vector3 }>>> = {
+const uniform = (s: number): Vector3 => Vector3.create(s, s, s)
+
+type GlbBuilding = {
+  src: string
+  yaw?: number
+  scale?: Vector3
+  /** Native [x, y, z] size in metres before `scale` (kit exports; Meshy models are pre-fitted and omit it). */
+  size?: [number, number, number]
+}
+
+const GLB_BUILDINGS: Record<RaceId, Partial<Record<BuildableKind, GlbBuilding>>> = {
+  // Knights: Synty Fantasy Kingdom presets exported by tools/export-realm-kit.py
+  // (tools/realms/knights.json). Native sizes live in src/art/kits/knights.json;
+  // each scale squeezes the preset onto the shared BUILDING_MODEL_FOOTPRINTS budget.
   human: {
-    temple: { src: 'models/buildings/human/temple.glb' },
-    supplyHouse: { src: 'models/buildings/human/supplyHouse.glb' },
-    barracks: { src: 'models/buildings/human/barracks.glb' },
-    techLab: { src: 'models/buildings/human/techLab.glb' },
-    forge: { src: 'models/buildings/human/forge.glb' },
-    airForge: { src: 'models/buildings/human/airForge.glb' },
-    fireplace: { src: 'models/buildings/human/fireplace.glb' },
-    turret: { src: 'models/buildings/human/turret.glb' }
+    temple: { src: 'models/kits/knights/kn_bld_temple.gltf', scale: uniform(0.92), size: [6.448, 11.74, 10.917] },
+    supplyHouse: { src: 'models/kits/knights/kn_bld_supply.gltf', scale: uniform(0.7), size: [6.448, 9.24, 8.073] },
+    barracks: { src: 'models/kits/knights/kn_bld_barracks.gltf', scale: uniform(0.73), size: [8.029, 10.49, 6.983] },
+    techLab: { src: 'models/kits/knights/kn_bld_techlab.gltf', scale: uniform(0.64), size: [8.557, 10.907, 8.613] },
+    forge: { src: 'models/kits/knights/kn_bld_forge.gltf', scale: uniform(0.45), size: [12.698, 10.983, 10.338] },
+    airForge: { src: 'models/kits/knights/kn_bld_siegeyard.gltf', scale: uniform(0.6), size: [9.676, 4.867, 7.751] },
+    fireplace: { src: 'models/kits/knights/kn_bld_beacon.gltf', scale: uniform(4.5), size: [0.554, 0.593, 0.554] },
+    turret: { src: 'models/kits/knights/kn_bld_turret.gltf', scale: uniform(0.65), size: [4.267, 6.658, 3.583] }
   },
   alien: {
     temple: { src: 'models/buildings/alien/temple.glb', scale: Vector3.create(1.45, 1, 1.45) },
@@ -83,7 +96,15 @@ export function getBuildingModelScale(race: RaceId, kind: BuildableKind): Vector
 /** Visual XZ size after any per-race model scale (Aethyr HQ is wider than the shared budget). */
 export function getBuildingVisualFootprint(race: RaceId, kind: BuildableKind): number {
   const scale = getBuildingModelScale(race, kind)
+  const native = GLB_BUILDINGS[race]?.[kind]?.size
+  if (native) return Math.max(native[0] * scale.x, native[2] * scale.z)
   return BUILDING_MODEL_FOOTPRINTS[kind] * Math.max(scale.x, scale.z)
+}
+
+/** Visual height after model scale (kit exports carry their native size; Meshy models use the shared table). */
+export function getBuildingVisualHeight(race: RaceId, kind: BuildableKind): number {
+  const glb = GLB_BUILDINGS[race]?.[kind]
+  return (glb?.size?.[1] ?? BUILDING_MODEL_HEIGHTS[kind]) * (glb?.scale?.y ?? 1)
 }
 
 const HUMAN_HULL = Color4.create(0.62, 0.66, 0.72, 1)
@@ -242,7 +263,7 @@ function addGlbAmbientFx(
   modelScale: Vector3
 ): void {
   const width = getBuildingVisualFootprint(race, kind)
-  const height = BUILDING_MODEL_HEIGHTS[kind] * modelScale.y
+  const height = getBuildingVisualHeight(race, kind)
 
   if (race === 'bio') {
     // Breathing: pulse the GLB container itself. Slow, shallow, phase-offset so
