@@ -354,8 +354,11 @@ function buildGlbUnit(rig: UnitRig, config: GlbUnit, race: RaceId, role: UnitRol
   rig.topYOverride = config.topY * boost
   if (config.clips) {
     // Real skeletal clips: the body root stays still and the Animator does the walking.
+    // Every clip is registered up front and toggled with playSingleAnimation: the
+    // Explorer does not reliably start a clip that first appears in a replaced states list.
+    const clipNames = Array.from(new Set(Object.values(config.clips)))
     Animator.create(model, {
-      states: [{ clip: config.clips.idle, playing: true, loop: true, speed: 1, weight: 1 }]
+      states: clipNames.map((clip) => ({ clip, playing: clip === config.clips!.idle, loop: true, speed: 1, weight: 1 }))
     })
     rig.skinned = { model, clips: config.clips }
     rig.profiles = { idle: NONE, walk: NONE, talk: NONE, attack: NONE, impact: NONE }
@@ -2581,10 +2584,8 @@ export function setUnitAnimation(root: Entity, clipName: string): void {
     // their first beat instead of joining mid-swing.
     rig.time = 0
     if (rig.skinned) {
-      const clip = rig.skinned.clips[next]
-      const animator = Animator.getMutable(rig.skinned.model)
       // One state at a time; every clip loops so a held attack keeps swinging.
-      animator.states = [{ clip, playing: true, loop: true, speed: 1, weight: 1 }]
+      Animator.playSingleAnimation(rig.skinned.model, rig.skinned.clips[next], true)
     }
   }
 }
