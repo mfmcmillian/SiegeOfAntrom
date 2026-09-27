@@ -99,7 +99,21 @@ import { buildEnvironmentEnclosure } from './rts/environment'
 import { buildTerrain } from './rts/terrain'
 import { buildUnitModel, disposeUnit, isProceduralUnit, setSiegeDeployProgress, setUnitAnimation, setUnitUpgradeInsignia, updateUnitCargo } from './rts/unitModels'
 import { BUILDING_MODEL_FOOTPRINTS, BUILDING_MODEL_HEIGHTS, buildBuildingModel, disposeAllBuildingModels, disposeBuildingModel, isProceduralBuilding, setBuildingModelDamage } from './rts/buildingModels'
-import { RACES, TRANSPORT_CAPACITY, UNIT_REQUIREMENTS, getBuildingDisplayName, getRace, getSoldierDefinition, getWorkerDefinition, isAirVariant, pickRandomRace } from './rts/races'
+import {
+  FLAGS,
+  RACES,
+  TRANSPORT_CAPACITY,
+  UNIT_REQUIREMENTS,
+  getBuildingDisplayName,
+  getRace,
+  getSoldierDefinition,
+  getTrainerKind,
+  getWorkerDefinition,
+  isAirVariant,
+  isResearchLab,
+  isVariantEnabled,
+  pickRandomRace
+} from './rts/races'
 import { buildResourceModel, disposeResourceModel, playResourceDepletion, playResourceGatherPulse } from './rts/resourceModels'
 import { showMoveMarker } from './rts/moveMarker'
 import { clearAllProjectiles, fireProjectile, shotImpactScale, shotPalette } from './rts/projectiles'
@@ -1244,9 +1258,9 @@ export function cancelBuildingPlacement(): void {
 export function queueSoldier(variant: SoldierVariant = 'melee'): void {
   if (!isMatchActive()) return
 
-  // Infantry (melee/ranged/healer/caster/anti-air) trains at the barracks; air and heavy machinery need the advanced structure.
-  const trainerKind: BuildableKind =
-    variant === 'melee' || variant === 'ranged' || variant === 'healer' || variant === 'caster' || variant === 'antiAir' ? 'barracks' : 'techLab'
+  if (!isVariantEnabled(variant)) return
+
+  const trainerKind = getTrainerKind(variant)
   const selected = getSelected()
   const trainer = selected?.kind === trainerKind ? (selected as Building) : undefined
   const soldierDef = getSoldierDefinition('player', variant)
@@ -1805,7 +1819,7 @@ export function cancelLastQueuedProduction(): void {
     return
   }
 
-  if (selected.kind === 'forge' || selected.kind === 'airForge') {
+  if (isResearchLab(selected.kind)) {
     cancelResearchAtBuilding(selected.id, 'player', true)
     return
   }
@@ -3557,6 +3571,7 @@ export function applyRemoteCommand(team: Team, command: MatchCommand): void {
         workerProductionOrders.push({ templeId: trainer.id, timer: 0, productionTime: workerDef.productionTime, team })
         gameState.economies[team].workerQueue += 1
       } else {
+        if (!isVariantEnabled(command.unit)) break
         const soldierDef = getSoldierDefinition(team, command.unit)
         forceSpendResources(team, soldierDef.cost)
         soldierProductionOrders.push({ barracksId: trainer.id, timer: 0, productionTime: soldierDef.productionTime, team, variant: command.unit })
@@ -4528,9 +4543,9 @@ function buildingCompleteStatus(name: string, kind: BuildableKind): string {
   if (kind === 'temple') return `${name} complete. Supply cap raised. Train workers and deliver resources here.`
   if (kind === 'supplyHouse') return `${name} complete. Supply cap raised.`
   if (kind === 'barracks') return `${name} complete. Soldier production comes next.`
-  if (kind === 'techLab') return `${name} complete. Casters, flyers and titans unlocked.`
+  if (kind === 'techLab') return FLAGS.air ? `${name} complete. Casters, flyers and titans unlocked.` : `${name} complete. Casters unlocked; build the siege workshop next.`
   if (kind === 'forge') return `${name} complete. Research weapon and speed upgrades.`
-  if (kind === 'airForge') return `${name} complete. Research Flight Weapons and Flight Propulsion.`
+  if (kind === 'airForge') return FLAGS.air ? `${name} complete. Research Flight Weapons and Flight Propulsion.` : `${name} complete. Siege engines and titans train here.`
   if (kind === 'turret') return `${name} complete. It fires on hostiles automatically.`
   return `${name} complete.`
 }
@@ -5452,6 +5467,7 @@ function getBuildingDetail(building: Building): string {
     const speedLevel = getUpgradeLevel(getTeam(building), 'speed')
     return `Complete: researches ground upgrades. Weapons Lv${damageLevel}, Propulsion Lv${speedLevel}.`
   }
+  if (building.kind === 'airForge' && !FLAGS.air) return 'Complete: trains siege engines and titans.'
   if (building.kind === 'airForge') {
     const damageLevel = getUpgradeLevel(getTeam(building), 'airDamage')
     const speedLevel = getUpgradeLevel(getTeam(building), 'airSpeed')

@@ -169,9 +169,46 @@ export function getSoldierDefinition(team: Team, variant: SoldierVariant): RaceU
   return race.melee
 }
 
+/**
+ * Feature switches. `air` compiles the flying roster (flyer / transport / heavyAir and the
+ * anti-air trooper) in or out. Siege of Antrom ships without it until dragon or griffin
+ * packs exist; the code paths stay so air can come back by flipping this.
+ */
+export const FLAGS = {
+  air: false
+}
+
+/** Variants that only exist when FLAGS.air is on. */
+export const AIR_ROSTER: SoldierVariant[] = ['antiAir', 'flyer', 'transport', 'heavyAir']
+
+/** Whether a soldier variant can be trained or referenced in menus under the current flags. */
+export function isVariantEnabled(variant: SoldierVariant): boolean {
+  return FLAGS.air || !AIR_ROSTER.includes(variant)
+}
+
 /** Airborne variants: fly over the void on island maps and only anti-air weapons reach them. */
 export function isAirVariant(variant: SoldierVariant): boolean {
   return variant === 'flyer' || variant === 'transport' || variant === 'heavyAir'
+}
+
+/**
+ * Structure that trains a soldier variant. Infantry at the barracks, everything advanced at the
+ * tech lab; without air the Skyharbor slot (`airForge`) becomes the siege workshop and takes
+ * the siege engine and titan off the tech lab's hands.
+ */
+export function getTrainerKind(variant: SoldierVariant): BuildableKind {
+  if (!FLAGS.air && (variant === 'siege' || variant === 'titan')) return 'airForge'
+  return ADVANCED_VARIANTS.includes(variant) ? 'techLab' : 'barracks'
+}
+
+/** Structures that queue soldiers. */
+export function isSoldierTrainer(kind: BuildableKind | string): boolean {
+  return kind === 'barracks' || kind === 'techLab' || (!FLAGS.air && kind === 'airForge')
+}
+
+/** Structures that queue research. */
+export function isResearchLab(kind: BuildableKind | string): boolean {
+  return kind === 'forge' || (FLAGS.air && kind === 'airForge')
 }
 
 /** How many ground units fit inside a transport. */
@@ -186,6 +223,11 @@ export const UNIT_REQUIREMENTS: Partial<Record<SoldierVariant, BuildableKind>> =
   titan: 'forge',
   heavyAir: 'airForge'
 }
+
+/** Roles a faction fields under the current flags (unit rosters, icons, showcases iterate this). */
+export const ACTIVE_VARIANTS: SoldierVariant[] = (
+  ['melee', 'ranged', 'healer', 'caster', 'antiAir', 'flyer', 'transport', 'heavyAir', 'siege', 'titan', 'hero'] as SoldierVariant[]
+).filter(isVariantEnabled)
 
 export function getBuildingDisplayName(kind: BuildableKind, team: Team): string {
   return getRace(team).buildingNames[kind]

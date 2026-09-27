@@ -24,7 +24,7 @@ import {
   type RankedLadder,
   type RankedMatchSummary
 } from '../rts/multiplayer/protocol'
-import { DEFAULT_MAP_ID, MAPS, getMapById } from '../rts/maps'
+import { DEFAULT_MAP_ID, getLobbyMaps, getMapById } from '../rts/maps'
 import { mulberry32 } from '../rts/multiplayer/seatMap'
 import { FRAMES, PORTRAITS } from '../rts/profile'
 import { campaignIdsForPortrait, fillSequentialCampaignIds } from '../rts/campaign'
@@ -848,7 +848,7 @@ export function startServer(): void {
       case 'setMap': {
         // Leader picks the battleground; reject ids not in the map registry.
         if (!isLeader || lobby.phase !== 'lobby') return
-        if (!MAPS.some((map) => map.id === request.mapId)) return
+        if (!getLobbyMaps().some((map) => map.id === request.mapId)) return
         lobby.mapId = request.mapId
         const cap = getMapById(request.mapId).maxPlayers
         for (let i = cap; i < lobby.seats.length; i++) {

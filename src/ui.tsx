@@ -101,7 +101,22 @@ import { getDragScreenRect } from './rts/dragSelect'
 import { getLobbyMaps, getMapById, getNextMapId } from './rts/maps'
 import { minimapPanel } from './rts/minimap'
 import { BUILDING_DEFINITIONS } from './rts/config'
-import { RACES, RACE_IDS, TRANSPORT_CAPACITY, UNIT_REQUIREMENTS, getBuildingDisplayName, getRace, getSoldierDefinition, getWorkerDefinition, isAirVariant } from './rts/races'
+import {
+  FLAGS,
+  RACES,
+  RACE_IDS,
+  TRANSPORT_CAPACITY,
+  UNIT_REQUIREMENTS,
+  getBuildingDisplayName,
+  getRace,
+  getSoldierDefinition,
+  getTrainerKind,
+  getWorkerDefinition,
+  isAirVariant,
+  isResearchLab,
+  isSoldierTrainer,
+  isVariantEnabled
+} from './rts/races'
 import { UPGRADE_INFO, UPGRADE_MAX_LEVEL, getNextUpgradeCost, getUpgradeLevel, getUpgradeProgress, isUpgradeInProgress } from './rts/upgrades'
 import { CONSOLE_HEIGHT } from './rts/hud'
 import { DIFFICULTY_IDS, AI_DIFFICULTY } from './rts/config'
@@ -806,7 +821,7 @@ function infoPanel(selected: SelectedSummary) {
 
         <Label value={selected.detail} fontSize={14} color={UI.dim} textAlign="middle-left" uiTransform={{ margin: { top: 8 } }} />
         {selected.kind === 'soldier' ? upgradeBadgesRow(selected.team ?? 'player', selected.variant) : null}
-        {(selected.kind === 'forge' || selected.kind === 'airForge') && !isEnemy ? (
+        {isResearchLab(selected.kind) && !isEnemy ? (
           <Label
             value={
               selected.kind === 'forge'
@@ -821,7 +836,7 @@ function infoPanel(selected: SelectedSummary) {
         ) : null}
       </UiEntity>
 
-      {multi ? wireframeGrid(units) : selected.kind === 'forge' || selected.kind === 'airForge' ? researchQueuePanel(selected) : transportCargoPanel() ?? productionQueuePanel(selected)}
+      {multi ? wireframeGrid(units) : isResearchLab(selected.kind) ? researchQueuePanel(selected) : transportCargoPanel() ?? productionQueuePanel(selected)}
     </UiEntity>
   )
 }
@@ -1235,21 +1250,23 @@ function getCommandSlots(selected: SelectedSummary): CommandSlot[] {
     })
   }
 
-  if (selected.kind === 'barracks') {
-    slots.push(trainSlot('melee', 'Frontline melee fighter.'))
-    slots.push(trainSlot('ranged', 'Ranged attacker. Fires from a distance.'))
-    slots.push(trainSlot('healer', getHealerDescription()))
-    slots.push(trainSlot('caster', 'Spellcaster. Slow blasts that splash nearby enemies.'))
-    slots.push(trainSlot('antiAir', 'Anti-air trooper. Long-range weapon that ONLY hits flyers.'))
-    slots.push(rallySlot())
-  }
-
-  if (selected.kind === 'techLab') {
-    slots.push(trainSlot('flyer', 'Fast flyer. Hovers over the battlefield.'))
-    slots.push(trainSlot('transport', `Unarmed air carrier. Ferries ${TRANSPORT_CAPACITY} ground units across the water.`))
-    slots.push(trainSlot('heavyAir', 'Capital ship. Slow, heavily armored, splash damage against ground and air.'))
-    slots.push(trainSlot('siege', getSiegeDescription()))
-    slots.push(trainSlot('titan', 'Giant assault monster. Splash stomps, huge HP.'))
+  if (isSoldierTrainer(selected.kind)) {
+    // Every variant this structure trains under the current flags, in roster order.
+    const roster: [SoldierVariant, string][] = [
+      ['melee', 'Frontline melee fighter.'],
+      ['ranged', 'Ranged attacker. Fires from a distance.'],
+      ['healer', getHealerDescription()],
+      ['caster', 'Spellcaster. Slow blasts that splash nearby enemies.'],
+      ['antiAir', 'Anti-air trooper. Long-range weapon that ONLY hits flyers.'],
+      ['flyer', 'Fast flyer. Hovers over the battlefield.'],
+      ['transport', `Unarmed air carrier. Ferries ${TRANSPORT_CAPACITY} ground units across the water.`],
+      ['heavyAir', 'Capital ship. Slow, heavily armored, splash damage against ground and air.'],
+      ['siege', getSiegeDescription()],
+      ['titan', 'Giant assault monster. Splash stomps, huge HP.']
+    ]
+    for (const [variant, description] of roster) {
+      if (isVariantEnabled(variant) && getTrainerKind(variant) === selected.kind) slots.push(trainSlot(variant, description))
+    }
     slots.push(rallySlot())
   }
 
@@ -1258,7 +1275,7 @@ function getCommandSlots(selected: SelectedSummary): CommandSlot[] {
     slots.push(upgradeSlot('speed'))
   }
 
-  if (selected.kind === 'airForge') {
+  if (selected.kind === 'airForge' && FLAGS.air) {
     slots.push(upgradeSlot('airDamage'))
     slots.push(upgradeSlot('airSpeed'))
   }
@@ -1352,13 +1369,7 @@ function getCommandSlots(selected: SelectedSummary): CommandSlot[] {
     })
   }
 
-  if (
-    selected.kind === 'temple' ||
-    selected.kind === 'barracks' ||
-    selected.kind === 'techLab' ||
-    selected.kind === 'forge' ||
-    selected.kind === 'airForge'
-  ) {
+  if (selected.kind === 'temple' || isSoldierTrainer(selected.kind) || isResearchLab(selected.kind)) {
     slots.push({
       id: 'cancel-queue',
       icon: ICON.action.cancel,
@@ -1487,9 +1498,15 @@ function getBuildingDescription(kind: BuildableKind): string {
   if (kind === 'temple') return `Main base. Trains ${race.worker.name}s and receives resources. Lose all of them and you lose.`
   if (kind === 'supplyHouse') return 'Raises your supply cap so you can field more units.'
   if (kind === 'barracks') return `Tier 1 production: ${race.melee.name}s, ${race.ranged.name}s and ${race.healer.name}s.`
-  if (kind === 'techLab') return `Tier 2 production: ${race.caster.name}s, ${race.flyer.name}s, ${race.siege.name}s and ${race.titan.name}s.`
+  if (kind === 'techLab')
+    return FLAGS.air
+      ? `Tier 2 production: ${race.caster.name}s, ${race.flyer.name}s, ${race.siege.name}s and ${race.titan.name}s.`
+      : `Tier 2 structure: unlocks the ${race.caster.name} and the siege workshop.`
   if (kind === 'forge') return 'Researches ground Weapons and Propulsion upgrades. Unlocks the titan.'
-  if (kind === 'airForge') return `Researches Flight Weapons and Flight Propulsion for your ${race.flyer.name}s.`
+  if (kind === 'airForge')
+    return FLAGS.air
+      ? `Researches Flight Weapons and Flight Propulsion for your ${race.flyer.name}s.`
+      : `Siege workshop: builds ${race.siege.name}s and ${race.titan.name}s.`
   if (kind === 'turret') return 'Automated defense tower. Fires on hostile units in range.'
   // Fireplace: each race's camp building does something different.
   if (race.id === 'human') return 'Signal fire. Lights up a huge area of the map through the fog.'
@@ -4485,7 +4502,7 @@ function getCommandTitle(kind: string): string {
   if (kind === 'barracks') return 'TIER 1 PRODUCTION'
   if (kind === 'techLab') return 'TIER 2 PRODUCTION'
   if (kind === 'forge') return 'RESEARCH'
-  if (kind === 'airForge') return 'AIR RESEARCH'
+  if (kind === 'airForge') return FLAGS.air ? 'AIR RESEARCH' : 'SIEGE PRODUCTION'
   if (kind === 'turret') return 'DEFENSE'
   if (kind === 'fireplace') return 'UTILITY'
   if (kind === 'soldier') return 'FIGHTER'

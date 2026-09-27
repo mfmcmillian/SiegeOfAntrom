@@ -5,7 +5,7 @@ import { AI_DIFFICULTY, BUILDING_DEFINITIONS, type DifficultySettings } from '..
 import { getIslandZoneAt, getMapById, isIslandMap, isSameIsland } from '../maps'
 import { canQueueUnit, getResourceAmount, getSupplyCap, getSupplyUsed, hasResources, spendResources } from '../economy'
 import { distanceToPoint } from '../math'
-import { TRANSPORT_CAPACITY, getSoldierDefinition, getWorkerDefinition } from '../races'
+import { FLAGS, TRANSPORT_CAPACITY, getSoldierDefinition, getTrainerKind, getWorkerDefinition, isVariantEnabled } from '../races'
 import { areHostile, gameState, isPlayerAlly } from '../state'
 import { getNextUpgradeCost, getUpgradeLevel, isUpgradeInProgress, startUpgradeResearchOrder } from '../upgrades'
 import type { BuildableKind, Building, Difficulty, EnemyTeam, ResourceKind, ResourceNode, Soldier, SoldierVariant, Team, UpgradeKind, Worker } from '../types'
@@ -171,7 +171,7 @@ function runEnemyBuildOrder(ai: EnemyAi, deps: EnemyAiDeps): void {
 
     // Island maps: wings before wheels - the army lives in the air here, so
     // air research comes straight after the tech lab.
-    if (ai.settings.research && isIslandMap() && getCompletedTeamBuildings(team, 'techLab').length > 0 && getTeamBuildings(team, 'airForge').length === 0) {
+    if (FLAGS.air && ai.settings.research && isIslandMap() && getCompletedTeamBuildings(team, 'techLab').length > 0 && getTeamBuildings(team, 'airForge').length === 0) {
       if (tryStartEnemyConstruction(ai, 'airForge', deps) !== 'blocked') return
     }
 
@@ -179,9 +179,10 @@ function runEnemyBuildOrder(ai: EnemyAi, deps: EnemyAiDeps): void {
       if (tryStartEnemyConstruction(ai, 'forge', deps) !== 'blocked') return
     }
 
-    // Air research follows once the ground forge is working: flyers are a
-    // steady part of the advanced army mix, so the upgrades pay off.
-    if (ai.settings.research && getCompletedTeamBuildings(team, 'forge').length > 0 && getTeamBuildings(team, 'airForge').length === 0) {
+    // With air: flight research follows the ground forge, since flyers are a steady part of
+    // the advanced mix. Without air the same slot is the siege workshop, which every AI
+    // wants once the forge stands (siege and titans train there).
+    if ((FLAGS.air ? ai.settings.research : true) && getCompletedTeamBuildings(team, 'forge').length > 0 && getTeamBuildings(team, 'airForge').length === 0) {
       if (tryStartEnemyConstruction(ai, 'airForge', deps) !== 'blocked') return
     }
   }
@@ -233,6 +234,8 @@ function queueEnemyProduction(ai: EnemyAi): void {
     // one anti-air trooper and one caster sprinkled in; melee if gas is short.
     const mod = guardCount % 8
     let variant: SoldierVariant = mod === 5 ? 'healer' : mod === 3 ? 'antiAir' : mod === 7 ? 'caster' : mod === 2 || mod === 6 ? 'ranged' : 'melee'
+    // No air roster: the anti-air slot becomes a second ranged trooper.
+    if (!isVariantEnabled(variant)) variant = 'ranged'
     let soldierDef = getSoldierDefinition(team, variant)
     if (variant !== 'melee' && !hasResources(team, soldierDef.cost)) {
       variant = 'melee'
@@ -254,7 +257,7 @@ function queueEnemyAdvancedProduction(ai: EnemyAi): void {
 
   // Island maps: a small carrier fleet comes before anything fancy, or the
   // ground army can never leave home (expanders keep a spare for colonizing).
-  if (isIslandMap()) {
+  if (FLAGS.air && isIslandMap()) {
     const wantTransports = ai.settings.expands ? 3 : 2
     const transportCount =
       soldiers.filter((soldier) => soldier.alive && getTeam(soldier) === team && soldier.variant === 'transport').length +
@@ -283,7 +286,11 @@ function queueEnemyAdvancedProduction(ai: EnemyAi): void {
   const hasAirForge = getCompletedTeamBuildings(team, 'airForge').length > 0
   const slot = advancedCount % 4
   let variant: SoldierVariant
-  if (isIslandMap()) {
+  if (!FLAGS.air) {
+    // Ground-only cycle out of the siege workshop: siege, siege, titan, siege.
+    if (!hasForge || !hasAirForge) return
+    variant = slot === 2 ? 'titan' : 'siege'
+  } else if (isIslandMap()) {
     // Island cycle leans hard on wings: flyer, capital ship, flyer, titan.
     // Flyers cross the water on their own; the occasional titan rides the ferry.
     variant = slot === 1 ? (hasAirForge ? 'heavyAir' : 'flyer') : slot === 3 ? (hasForge ? 'titan' : 'flyer') : 'flyer'
@@ -292,11 +299,13 @@ function queueEnemyAdvancedProduction(ai: EnemyAi): void {
     variant = slot === 1 ? (hasForge ? 'siege' : 'flyer') : slot === 2 ? (hasAirForge ? 'heavyAir' : 'flyer') : slot === 3 ? (hasForge ? 'titan' : 'flyer') : 'flyer'
   }
   const soldierDef = getSoldierDefinition(team, variant)
+  const trainer = getTrainerKind(variant) === 'techLab' ? techLab : getCompletedTeamBuildings(team, getTrainerKind(variant))[0]
+  if (!trainer) return
 
   if (!canQueueUnit(team, soldierDef.supply) || !hasResources(team, soldierDef.cost)) return
   if (!spendResources(team, soldierDef.cost)) return
 
-  soldierProductionOrders.push({ barracksId: techLab.id, timer: 0, productionTime: soldierDef.productionTime, team, variant })
+  soldierProductionOrders.push({ barracksId: trainer.id, timer: 0, productionTime: soldierDef.productionTime, team, variant })
   gameState.economies[team].soldierQueue += 1
 }
 
@@ -311,7 +320,7 @@ function queueEnemyResearch(ai: EnemyAi): void {
   }
 
   // Air tracks only matter once the AI actually fields flyers.
-  const airForge = getCompletedTeamBuildings(team, 'airForge')[0]
+  const airForge = FLAGS.air ? getCompletedTeamBuildings(team, 'airForge')[0] : undefined
   const hasFlyers = soldiers.some((soldier) => soldier.alive && getTeam(soldier) === team && (soldier.variant === 'flyer' || soldier.variant === 'heavyAir'))
   if (airForge && hasFlyers) {
     tryStartResearchTrack(team, 'airDamage', 'airSpeed', airForge.id)
