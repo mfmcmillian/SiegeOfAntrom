@@ -12,6 +12,12 @@
     },
     "dr": {
       "fbx": "FBX/Characters/{name}.fbx"
+    },
+    "er": {
+      "fbx": "Assets/Synty/PolygonElvenRealm/Models/Characters.fbx"
+    },
+    "dk": {
+      "fbx": "Assets/Synty/PolygonDarkFantasy/Models/{name}.fbx"
     }
   },
   "bodies": [
@@ -269,6 +275,119 @@
       "pack": "kn",
       "fbx": "Character_Knight_03",
       "weapon": "fk-staff-05"
+    },
+    {
+      "id": "el-worker",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_Commoner_Male_01",
+      "weapon": "er-axe"
+    },
+    {
+      "id": "el-blade",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_Knight_Male_01",
+      "weapon": "er-sword"
+    },
+    {
+      "id": "el-ranger",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_Soldier_Female_01",
+      "weapon": "er-bow"
+    },
+    {
+      "id": "el-druid",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_Priestess_Female_01",
+      "weapon": "er-staff"
+    },
+    {
+      "id": "el-weaver",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_Scholar_Male_01",
+      "weapon": "er-staff-02"
+    },
+    {
+      "id": "el-king",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_King_Male_01",
+      "weapon": "er-glaive"
+    },
+    {
+      "id": "el-warden",
+      "realm": "elves",
+      "pack": "er",
+      "mesh": "SM_Chr_Nobility_Male_01",
+      "weapon": "er-sword-03"
+    },
+    {
+      "id": "ud-ghoul",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_Gravedigger_Male_01",
+      "weapon": "dk-shovel"
+    },
+    {
+      "id": "ud-skeleton",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_Skeleton_LightArmor_01",
+      "weapon": "dk-sword"
+    },
+    {
+      "id": "ud-archer",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_Skeleton_Ranger_01",
+      "weapon": "dk-crossbow"
+    },
+    {
+      "id": "ud-necro",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_Priest_Female_01",
+      "weapon": "dk-staff"
+    },
+    {
+      "id": "ud-sorcerer",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_Witch_Female_01",
+      "weapon": "dk-scythe"
+    },
+    {
+      "id": "ud-heavy",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_Skeleton_HeavyArmor_01",
+      "weapon": "dk-mace"
+    },
+    {
+      "id": "ud-demon",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "BigCharacters",
+      "mesh": "SM_Chr_Demon_01",
+      "weapon": "dk-halberd"
+    },
+    {
+      "id": "ud-darklord",
+      "realm": "undead",
+      "pack": "dk",
+      "fbx": "Characters",
+      "mesh": "SM_Chr_DarkLord_Male_01",
+      "weapon": "dk-sword-03"
     }
   ],
   "weapons": [
@@ -301,6 +420,113 @@
       "palette": "base",
       "class": "bow",
       "hand": "Hand_L"
+    },
+    {
+      "id": "er-axe",
+      "pack": "er",
+      "mesh": "SM_Wep_Axe_01",
+      "palette": "base",
+      "class": "axe"
+    },
+    {
+      "id": "er-sword",
+      "pack": "er",
+      "mesh": "SM_Wep_Sword_01",
+      "palette": "base",
+      "class": "sword"
+    },
+    {
+      "id": "er-sword-03",
+      "pack": "er",
+      "mesh": "SM_Wep_Sword_03",
+      "palette": "base",
+      "class": "sword"
+    },
+    {
+      "id": "er-bow",
+      "pack": "er",
+      "mesh": "SM_Wep_Bow_01",
+      "palette": "base",
+      "class": "bow",
+      "hand": "Hand_L"
+    },
+    {
+      "id": "er-staff",
+      "pack": "er",
+      "mesh": "SM_Wep_Staff_01",
+      "palette": "base",
+      "class": "staff"
+    },
+    {
+      "id": "er-staff-02",
+      "pack": "er",
+      "mesh": "SM_Wep_Staff_02",
+      "palette": "base",
+      "class": "staff"
+    },
+    {
+      "id": "er-glaive",
+      "pack": "er",
+      "mesh": "SM_Wep_Glaive_01",
+      "palette": "base",
+      "class": "great"
+    },
+    {
+      "id": "dk-shovel",
+      "pack": "dk",
+      "mesh": "SM_Wep_Shovel_01",
+      "palette": "base",
+      "class": "club"
+    },
+    {
+      "id": "dk-sword",
+      "pack": "dk",
+      "mesh": "SM_Wep_Sword_01",
+      "palette": "base",
+      "class": "sword"
+    },
+    {
+      "id": "dk-sword-03",
+      "pack": "dk",
+      "mesh": "SM_Wep_Sword_03",
+      "palette": "base",
+      "class": "sword"
+    },
+    {
+      "id": "dk-crossbow",
+      "pack": "dk",
+      "mesh": "SM_Wep_Crossbow_01",
+      "palette": "base",
+      "class": "bow",
+      "hand": "Hand_L"
+    },
+    {
+      "id": "dk-staff",
+      "pack": "dk",
+      "mesh": "SM_Wep_Staff_01",
+      "palette": "base",
+      "class": "staff"
+    },
+    {
+      "id": "dk-scythe",
+      "pack": "dk",
+      "mesh": "SM_Wep_Scythe_01",
+      "palette": "base",
+      "class": "great"
+    },
+    {
+      "id": "dk-halberd",
+      "pack": "dk",
+      "mesh": "SM_Wep_Halberd_01",
+      "palette": "base",
+      "class": "great"
+    },
+    {
+      "id": "dk-mace",
+      "pack": "dk",
+      "mesh": "SM_Wep_Mace_01",
+      "palette": "base",
+      "class": "mace"
     }
   ]
 }

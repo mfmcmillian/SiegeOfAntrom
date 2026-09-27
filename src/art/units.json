@@ -38,5 +38,80 @@
     "path": "models/units/knights/kn-mage.gltf",
     "height": 1.884,
     "tris": 2942
+  },
+  "el-worker": {
+    "path": "models/units/elves/el-worker.gltf",
+    "height": 1.788,
+    "tris": 4382
+  },
+  "el-blade": {
+    "path": "models/units/elves/el-blade.gltf",
+    "height": 1.799,
+    "tris": 4726
+  },
+  "el-ranger": {
+    "path": "models/units/elves/el-ranger.gltf",
+    "height": 1.792,
+    "tris": 4730
+  },
+  "el-druid": {
+    "path": "models/units/elves/el-druid.gltf",
+    "height": 1.791,
+    "tris": 4942
+  },
+  "el-weaver": {
+    "path": "models/units/elves/el-weaver.gltf",
+    "height": 1.791,
+    "tris": 3922
+  },
+  "el-king": {
+    "path": "models/units/elves/el-king.gltf",
+    "height": 1.791,
+    "tris": 5908
+  },
+  "el-warden": {
+    "path": "models/units/elves/el-warden.gltf",
+    "height": 1.791,
+    "tris": 3613
+  },
+  "ud-ghoul": {
+    "path": "models/units/undead/ud-ghoul.gltf",
+    "height": 1.797,
+    "tris": 5192
+  },
+  "ud-skeleton": {
+    "path": "models/units/undead/ud-skeleton.gltf",
+    "height": 1.795,
+    "tris": 7488
+  },
+  "ud-archer": {
+    "path": "models/units/undead/ud-archer.gltf",
+    "height": 1.797,
+    "tris": 7884
+  },
+  "ud-necro": {
+    "path": "models/units/undead/ud-necro.gltf",
+    "height": 1.792,
+    "tris": 3672
+  },
+  "ud-sorcerer": {
+    "path": "models/units/undead/ud-sorcerer.gltf",
+    "height": 1.792,
+    "tris": 4310
+  },
+  "ud-heavy": {
+    "path": "models/units/undead/ud-heavy.gltf",
+    "height": 1.795,
+    "tris": 8168
+  },
+  "ud-demon": {
+    "path": "models/units/undead/ud-demon.gltf",
+    "height": 1.909,
+    "tris": 7270
+  },
+  "ud-darklord": {
+    "path": "models/units/undead/ud-darklord.gltf",
+    "height": 1.843,
+    "tris": 6558
   }
 }

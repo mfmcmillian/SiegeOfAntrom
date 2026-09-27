@@ -122,36 +122,24 @@
       "label": "Bow Combat"
     },
     "er": {
-      "zip": "POLYGON_ElvenRealm_Unity_2022_3_v1_6_2.unitypackage",
+      "zip": "POLYGON_ElvenRealm_Unity_2022_3_v1_6_2.zip",
       "fbx": "Assets/Synty/PolygonElvenRealm/Models/{name}.fbx",
       "palettes": {
-        "base": "Assets/Synty/PolygonElvenRealm/Textures/Alts/PolygonElven_01_A.png",
-        "moon": "Assets/Synty/PolygonElvenRealm/Textures/Alts/PolygonElven_02_A.png",
-        "dusk": "Assets/Synty/PolygonElvenRealm/Textures/Alts/PolygonElven_03_A.png",
-        "autumn": "Assets/Synty/PolygonElvenRealm/Textures/Alts/PolygonElven_04_A.png"
+        "base": "Assets/Synty/PolygonElvenRealm/Textures/Alts/PolygonElven_01_A.png"
       },
       "emission": {
-        "base": "Assets/Synty/PolygonElvenRealm/Textures/Emissive/PolygonElven_01_A_Emissive.png",
-        "moon": "Assets/Synty/PolygonElvenRealm/Textures/Emissive/PolygonElven_02_A_Emissive.png",
-        "dusk": "Assets/Synty/PolygonElvenRealm/Textures/Emissive/PolygonElven_03_A_Emissive.png",
-        "autumn": "Assets/Synty/PolygonElvenRealm/Textures/Emissive/PolygonElven_04_A_Emissive.png"
+        "base": "Assets/Synty/PolygonElvenRealm/Textures/Emissive/PolygonElven_01_A_Emissive.png"
       },
       "label": "Elven Realm"
     },
     "dk": {
-      "zip": "POLYGON_Dark_Fantasy_Unity_2022_3_v1_4_1.unitypackage",
+      "zip": "POLYGON_Dark_Fantasy_Unity_2022_3_v1_4_1.zip",
       "fbx": "Assets/Synty/PolygonDarkFantasy/Models/{name}.fbx",
       "palettes": {
-        "base": "Assets/Synty/PolygonDarkFantasy/Textures/Alts/PolygonDarkFantasy_01_A.png",
-        "blood": "Assets/Synty/PolygonDarkFantasy/Textures/Alts/PolygonDarkFantasy_02_A.png",
-        "grave": "Assets/Synty/PolygonDarkFantasy/Textures/Alts/PolygonDarkFantasy_03_A.png",
-        "plague": "Assets/Synty/PolygonDarkFantasy/Textures/Alts/PolygonDarkFantasy_04_A.png"
+        "base": "Assets/Synty/PolygonDarkFantasy/Textures/Alts/PolygonDarkFantasy_01_A.png"
       },
       "emission": {
-        "base": "Assets/Synty/PolygonDarkFantasy/Textures/Emissive/PolygonDarkFantasy_01_A_Emissive.png",
-        "blood": "Assets/Synty/PolygonDarkFantasy/Textures/Emissive/PolygonDarkFantasy_02_A_Emissive.png",
-        "grave": "Assets/Synty/PolygonDarkFantasy/Textures/Emissive/PolygonDarkFantasy_03_A_Emissive.png",
-        "plague": "Assets/Synty/PolygonDarkFantasy/Textures/Emissive/PolygonDarkFantasy_04_A_Emissive.png"
+        "base": "Assets/Synty/PolygonDarkFantasy/Textures/Emissive/PolygonDarkFantasy_01_A_Emissive.png"
       },
       "label": "Dark Fantasy"
     },

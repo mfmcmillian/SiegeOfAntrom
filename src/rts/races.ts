@@ -128,8 +128,8 @@ export const RACES: Record<RaceId, RaceDefinition> = {
     transport: { name: 'Bone Wyrm', hp: 130, damage: 0, moveSpeed: 3.9, attackRange: 0, cost: { minerals: 125, gas: 50 }, productionTime: 3, supply: 2 },
     heavyAir: { name: 'Dread Dragon', hp: 280, damage: 20, moveSpeed: 2.7, attackRange: 6.5, attackRate: 1.3, splashRadius: 1.8, cost: { minerals: 250, gas: 150 }, productionTime: 6, supply: 4 },
     siege: { name: 'Plague Catapult', hp: 140, damage: 38, moveSpeed: 2.55, attackRange: 12, attackRate: 2.6, splashRadius: 3.4, cost: { minerals: 150, gas: 100 }, productionTime: 4, supply: 3 },
-    titan: { name: 'Bone Giant', hp: 320, damage: 30, moveSpeed: 2.6, attackRange: 2.6, attackRate: 1.5, splashRadius: 2, cost: { minerals: 250, gas: 150 }, productionTime: 6, supply: 4 },
-    hero: { name: 'Lich Queen Szel', hp: 750, damage: 24, moveSpeed: 3.2, attackRange: 2.2, attackRate: 1.4, splashRadius: 1.6, cost: {}, productionTime: 0, supply: 0 },
+    titan: { name: 'Demon', hp: 320, damage: 30, moveSpeed: 2.6, attackRange: 2.6, attackRate: 1.5, splashRadius: 2, cost: { minerals: 250, gas: 150 }, productionTime: 6, supply: 4 },
+    hero: { name: 'Dark Lord Szel', hp: 750, damage: 24, moveSpeed: 3.2, attackRange: 2.2, attackRate: 1.4, splashRadius: 1.6, cost: {}, productionTime: 0, supply: 0 },
     heroTrait: 'Endless Dead: Szel raises a free Skeleton every 35 seconds.',
     buildingNames: {
       temple: 'Crypt',

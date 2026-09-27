@@ -247,6 +247,30 @@ const GLB_ROLE_SCALE: Record<UnitRole, number> = {
   hero: 2.3
 }
 
+const ELVES: Partial<Record<UnitRole, GlbUnit>> = {
+  worker: { src: 'models/units/elves/el-worker.gltf', yaw: 0, topY: 1.79, scale: KNIGHT_SCALE, clips: SYNTY_MELEE_CLIPS },
+  melee: { src: 'models/units/elves/el-blade.gltf', yaw: 0, topY: 1.8, scale: KNIGHT_SCALE, clips: SYNTY_MELEE_CLIPS },
+  ranged: { src: 'models/units/elves/el-ranger.gltf', yaw: 0, topY: 1.79, scale: KNIGHT_SCALE, clips: SYNTY_BOW_CLIPS },
+  healer: { src: 'models/units/elves/el-druid.gltf', yaw: 0, topY: 1.79, scale: KNIGHT_SCALE, clips: SYNTY_CAST_CLIPS },
+  caster: { src: 'models/units/elves/el-weaver.gltf', yaw: 0, topY: 1.79, scale: KNIGHT_SCALE, clips: SYNTY_CAST_CLIPS },
+  // Elven Realm has no siege engine; the Fantasy Kingdom catapult stands in until a ballista is exported.
+  siege: { src: 'models/kits/knights/kn_catapult.gltf', yaw: 0, topY: 3.46, scale: 0.7 },
+  // Placeholder treant: the elven king at champion scale.
+  titan: { src: 'models/units/elves/el-king.gltf', yaw: 0, topY: 1.79, scale: 2.1, clips: SYNTY_MELEE_CLIPS },
+  hero: { src: 'models/units/elves/el-warden.gltf', yaw: 0, topY: 1.79, scale: 1.5, clips: SYNTY_MELEE_CLIPS }
+}
+
+const UNDEAD: Partial<Record<UnitRole, GlbUnit>> = {
+  worker: { src: 'models/units/undead/ud-ghoul.gltf', yaw: 0, topY: 1.8, scale: KNIGHT_SCALE, clips: SYNTY_MELEE_CLIPS },
+  melee: { src: 'models/units/undead/ud-skeleton.gltf', yaw: 0, topY: 1.8, scale: KNIGHT_SCALE, clips: SYNTY_MELEE_CLIPS },
+  ranged: { src: 'models/units/undead/ud-archer.gltf', yaw: 0, topY: 1.8, scale: KNIGHT_SCALE, clips: SYNTY_BOW_CLIPS },
+  healer: { src: 'models/units/undead/ud-necro.gltf', yaw: 0, topY: 1.79, scale: KNIGHT_SCALE, clips: SYNTY_CAST_CLIPS },
+  caster: { src: 'models/units/undead/ud-sorcerer.gltf', yaw: 0, topY: 1.79, scale: KNIGHT_SCALE, clips: SYNTY_CAST_CLIPS },
+  siege: { src: 'models/kits/knights/kn_catapult.gltf', yaw: 0, topY: 3.46, scale: 0.7 },
+  titan: { src: 'models/units/undead/ud-demon.gltf', yaw: 0, topY: 1.91, scale: 2.1, clips: SYNTY_MELEE_CLIPS },
+  hero: { src: 'models/units/undead/ud-darklord.gltf', yaw: 0, topY: 1.84, scale: 1.5, clips: SYNTY_MELEE_CLIPS }
+}
+
 const GLB_UNITS: Partial<Record<RaceId, Partial<Record<UnitRole, GlbUnit>>>> = {
   // `human` is the Knights faction (Synty Knights + Fantasy Kingdom). The old Meshy
   // sci-fi set stays on disk under models/units/human for the air roster.
@@ -259,38 +283,25 @@ const GLB_UNITS: Partial<Record<RaceId, Partial<Record<UnitRole, GlbUnit>>>> = {
     transport: { src: 'models/units/human/transport.glb', yaw: -90, topY: 1.5 },
     heavyAir: { src: 'models/units/human/heavyAir.glb', yaw: -90, topY: 1.6 }
   },
+  // `alien` is the Elves faction (Synty Elven Realm characters).
   alien: {
-    worker: { src: 'models/units/alien/worker.glb', yaw: 0, topY: 0.9 },
-    melee: { src: 'models/units/alien/melee.glb', yaw: 0, topY: 1.5 },
-    ranged: { src: 'models/units/alien/ranged.glb', yaw: 0, topY: 1.4 },
-    healer: { src: 'models/units/alien/healer.glb', yaw: 0, topY: 1.35 },
-    caster: { src: 'models/units/alien/caster.glb', yaw: 0, topY: 1.5 },
+    ...ELVES,
     antiAir: { src: 'models/units/alien/antiAir.glb', yaw: 0, topY: 1.45 },
-    // Zephyr and Solar Ark fly apex-first along Z already; the barge and the
-    // lance platform are X-aligned like the Vanguard vehicles.
+    // Zephyr and Solar Ark fly apex-first along Z already; the barge is X-aligned.
     flyer: { src: 'models/units/alien/flyer.glb', yaw: 0, topY: 0.9 },
     transport: { src: 'models/units/alien/transport.glb', yaw: -90, topY: 1.4 },
-    heavyAir: { src: 'models/units/alien/heavyAir.glb', yaw: 0, topY: 2.55 },
-    siege: { src: 'models/units/alien/siege.glb', yaw: -90, topY: 1.4 },
-    titan: { src: 'models/units/alien/titan.glb', yaw: 0, topY: 2.8 },
-    hero: { src: 'models/units/alien/hero.glb', yaw: 0, topY: 2.0 }
+    heavyAir: { src: 'models/units/alien/heavyAir.glb', yaw: 0, topY: 2.55 }
   },
+  // `bio` is the Undead faction (Synty Dark Fantasy characters).
   bio: {
-    worker: { src: 'models/units/bio/worker.glb', yaw: 0, topY: 0.7 },
-    melee: { src: 'models/units/bio/melee.glb', yaw: 0, topY: 1.05 },
-    ranged: { src: 'models/units/bio/ranged.glb', yaw: 0, topY: 0.9 },
-    healer: { src: 'models/units/bio/healer.glb', yaw: 0, topY: 1.1 },
-    caster: { src: 'models/units/bio/caster.glb', yaw: 0, topY: 1.5 },
+    ...UNDEAD,
     antiAir: { src: 'models/units/bio/antiAir.glb', yaw: 0, topY: 1.3 },
     // The shrieker flies head-first along glTF +Z (verified in the previewer),
     // which DCL's import flip turns into -Z; 180 puts the skull on the game's
     // +Z forward. The broodwing jellyfish is radially symmetric so yaw is moot.
     flyer: { src: 'models/units/bio/flyer.glb', yaw: 180, topY: 1.4 },
     transport: { src: 'models/units/bio/transport.glb', yaw: 0, topY: 2.6 },
-    heavyAir: { src: 'models/units/bio/heavyAir.glb', yaw: 0, topY: 2.4 },
-    siege: { src: 'models/units/bio/siege.glb', yaw: 0, topY: 1.7 },
-    titan: { src: 'models/units/bio/titan.glb', yaw: 0, topY: 2.4 },
-    hero: { src: 'models/units/bio/hero.glb', yaw: 0, topY: 2.2 }
+    heavyAir: { src: 'models/units/bio/heavyAir.glb', yaw: 0, topY: 2.4 }
   }
 }
 
