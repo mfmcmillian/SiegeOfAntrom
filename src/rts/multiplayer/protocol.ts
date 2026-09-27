@@ -1,7 +1,7 @@
 import { DEFAULT_MAP_ID } from '../maps'
 import type { Difficulty, GameMode, RaceId } from '../types'
 
-// Wire protocol for DecentraCraft multiplayer.
+// Wire protocol for Siege of Antrom multiplayer.
 //
 // Architecture: the DCL authoritative server owns the lobby and relays match
 // commands. Clients never write shared state directly - they send requests,

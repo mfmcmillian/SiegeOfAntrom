@@ -32,7 +32,7 @@ export type FrameDef = {
   hint: string
 }
 
-const STORAGE_KEY = 'decentracraft-profile-v1'
+const STORAGE_KEY = 'siege-of-antrom-profile-v1'
 export const LOCKED_PORTRAIT_SRC = 'images/ui/profile/portrait-locked.jpg'
 export const LOCKED_FRAME_SRC = 'images/ui/profile/frame-locked.jpg'
 export const RACE_MISSION_COUNT = 8
@@ -95,7 +95,7 @@ export const PORTRAITS: PortraitDef[] = [
     manaTip: true,
     name: 'The Patron',
     src: 'images/ui/profile/portrait-patron.jpg',
-    hint: 'Tip 100 MANA to DecentraCraft.'
+    hint: 'Tip 100 MANA to Siege of Antrom.'
   }
 ]
 

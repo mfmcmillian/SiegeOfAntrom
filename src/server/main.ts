@@ -31,7 +31,7 @@ import { campaignIdsForPortrait, fillSequentialCampaignIds } from '../rts/campai
 import { BOARDS_SYNC_ID, LOBBY_SYNC_ID, MpBoardsState, MpLobbyState, MpProfilesState, MpRankedState, PROFILES_SYNC_ID, RANKED_SYNC_ID, room } from '../rts/multiplayer/transport'
 import type { RaceId } from '../rts/types'
 
-// DecentraCraft authoritative server. Runs headlessly alongside the world and
+// Siege of Antrom authoritative server. Runs headlessly alongside the world and
 // owns everything the clients must agree on:
 //   - the lobby rooms (seats, races, teams, ready flags, the leader of each)
 //   - match starts (freezes a room's lobby, rolls its shared seed)
@@ -60,15 +60,16 @@ const ELO_K = 32
  * boot. EnvVar LEADERBOARD_PUSH_URL overrides it, but the env service only
  * exists for Worlds - this Genesis City LAND deploy relies on the default.
  */
-const DEFAULT_LEADERBOARD_PUSH_URL = 'https://decentracraft-nine.vercel.app/api/ladder'
-const DEFAULT_BOARDS_PUSH_URL = 'https://decentracraft-nine.vercel.app/api/boards'
-const DEFAULT_CAMPAIGN_PUSH_URL = 'https://decentracraft-nine.vercel.app/api/campaign'
+// Siege of Antrom has no public boards yet: pushes stay off until the EnvVars are set.
+const DEFAULT_LEADERBOARD_PUSH_URL = ''
+const DEFAULT_BOARDS_PUSH_URL = ''
+const DEFAULT_CAMPAIGN_PUSH_URL = ''
 /**
  * Join notices go through the website (website/api/join.js), which holds the
  * Discord webhook in a Vercel env var. This code is public; a webhook URL
  * committed here was scraped from GitHub and spammed.
  */
-const DEFAULT_JOIN_RELAY_URL = 'https://decentracraft-nine.vercel.app/api/join'
+const DEFAULT_JOIN_RELAY_URL = ''
 const JOIN_NOTIFY_COOLDOWN_MS = 120000
 const JOIN_NOTIFY_NAME_WAIT_S = 4
 const BOARDS_STORAGE_KEY = 'leaderboards-v1'
@@ -171,7 +172,7 @@ function buildRankedLadder(): RankedLadder {
 }
 
 export function startServer(): void {
-  console.log('[Server] DecentraCraft authoritative server starting')
+  console.log('[Server] Siege of Antrom authoritative server starting')
 
   const lobbyEntity = engine.addEntity()
   let revision = 0
@@ -215,6 +216,7 @@ export function startServer(): void {
     // endpoint, so ratings survive restarts even without world Storage.
     try {
       const url = await getLeaderboardPushUrl()
+      if (!url) return
       const response = await fetch(url)
       if (!response.ok) return
       applyLoadedLadder((await response.json()) as RankedLadder, 'website endpoint')
@@ -304,7 +306,7 @@ export function startServer(): void {
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ game: 'decentracraft', name, address, online })
+          body: JSON.stringify({ game: 'siege-of-antrom', name, address, online })
         })
         if (!response.ok) console.log(`[Server] discord join notify failed: ${response.status}`)
       } catch (error) {
@@ -390,6 +392,7 @@ export function startServer(): void {
 
     try {
       const url = await getBoardsPushUrl()
+      if (!url) return
       const response = await fetch(url)
       if (response.ok) applyLoadedBoards((await response.json()) as GameBoards, 'website endpoint')
     } catch (error) {
@@ -411,6 +414,7 @@ export function startServer(): void {
     void (async () => {
       try {
         const url = await getBoardsPushUrl()
+        if (!url) return
         const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json })
         if (!response.ok) {
           console.log(`[Server] boards website push failed: HTTP ${response.status}`)
@@ -593,6 +597,7 @@ export function startServer(): void {
     void (async () => {
       try {
         const url = await getLeaderboardPushUrl()
+        if (!url) return
         await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json })
         console.log('[Server] ranked ladder pushed to website endpoint')
       } catch (error) {
@@ -1011,6 +1016,7 @@ export function startServer(): void {
     void (async () => {
       try {
         const url = await getCampaignPushUrl()
+        if (!url) return
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

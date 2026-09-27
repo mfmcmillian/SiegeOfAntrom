@@ -2253,7 +2253,7 @@ function startScreenOverlay() {
         uiBackground={{ textureMode: 'stretch', texture: { src: 'images/ui/buttons/btn-wiki.png' } }}
         onMouseDown={() => {
           playUiClick()
-          void openExternalUrl({ url: 'https://www.decentracraft.app/' })
+          void openExternalUrl({ url: 'https://github.com/mfmcmillian/SiegeOfAntrom' })
         }}
       />
 
@@ -3721,7 +3721,7 @@ function profileTipButton() {
   const tipStatus = getTipStatus()
   const pending = tipStatus === 'pending'
   const label = tipped
-    ? 'DECENTRACRAFT PATRON'
+    ? 'SIEGE PATRON'
     : pending
       ? 'CONFIRM IN WALLET...'
       : `TIP ${TIP_MANA_AMOUNT} MANA`

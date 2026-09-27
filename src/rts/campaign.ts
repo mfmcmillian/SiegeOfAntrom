@@ -508,8 +508,8 @@ export type CampaignProgress = {
   completed: string[]
 }
 
-const LOCAL_SAVE_KEY = 'decentracraft-campaign-v1'
-const LOCAL_MIGRATED_KEY = 'decentracraft-campaign-v1-migrated'
+const LOCAL_SAVE_KEY = 'siege-of-antrom-campaign-v1'
+const LOCAL_MIGRATED_KEY = 'siege-of-antrom-campaign-v1-migrated'
 
 const progress: CampaignProgress = { completed: [] }
 /** Wallet (or guest id) whose local save we are writing. Empty until session binds it. */

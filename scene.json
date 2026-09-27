@@ -2,8 +2,8 @@
   "ecs7": true,
   "runtimeVersion": "7",
   "display": {
-    "title": "DecentraCraft",
-    "description": "DecentraCraft: an original sci-fi RTS. Three factions, base building, war on a shattered moon.",
+    "title": "Siege of Antrom",
+    "description": "Siege of Antrom: a low-poly fantasy RTS. Knights, Elves and Undead; base building and war for the Kingdom of Antrom.",
     "favicon": "favicon_asset",
     "navmapThumbnail": "images/thumbnail.jpg"
   },
