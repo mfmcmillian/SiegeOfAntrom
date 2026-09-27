@@ -1224,7 +1224,7 @@ function getCommandSlots(selected: SelectedSummary): CommandSlot[] {
       name: 'Repair',
       description:
         gameState.playerRace === 'human'
-          ? `Click a damaged building, ${getRace('player').flyer.name} or ${getRace('player').titan.name} after pressing. Costs crystal; Vanguard crews repair 75% faster.`
+          ? `Click a damaged building${FLAGS.air ? `, ${getRace('player').flyer.name}` : ''} or ${getRace('player').titan.name} after pressing. Costs crystal; Knights masons repair 75% faster.`
           : 'Click a damaged building after pressing. Costs crystal while repairing.',
       onClick: startRepairOrder
     })
