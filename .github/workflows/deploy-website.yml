@@ -1,0 +1,27 @@
+name: Deploy website to GitHub Pages
+
+# Pages serves from the gh-pages branch; this mirrors website/ onto it.
+# (The Actions-native deploy-pages path needs Pages pre-configured with
+# "GitHub Actions" as source, which the default token cannot set up.)
+# Manual-only until the Siege of Antrom site has its own domain and Pages
+# is enabled for this repo. Re-add the push trigger then.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./website
