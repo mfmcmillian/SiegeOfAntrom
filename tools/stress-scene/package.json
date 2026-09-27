@@ -1,0 +1,24 @@
+{
+  "name": "siege-of-antrom-stress-scene",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Slice 0: how many Animator-driven Synty bodies can the Explorer push at RTS camera distance?",
+  "scripts": {
+    "start": "sdk-commands start",
+    "start:mcp": "sdk-commands start --mcp",
+    "build": "sdk-commands build"
+  },
+  "devDependencies": {
+    "@dcl/js-runtime": "7.29.0",
+    "@dcl/sdk": "^7.25.1-30310486734.commit-5ffe873"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "none"
+  }
+}
