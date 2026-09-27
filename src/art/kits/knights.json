@@ -394,6 +394,24 @@
         8.073
       ],
       "tris": 9751
+    },
+    "res_ore_gold": {
+      "src": "models/kits/knights/res_ore_gold.gltf",
+      "size": [
+        0.193,
+        0.093,
+        0.201
+      ],
+      "tris": 338
+    },
+    "res_well": {
+      "src": "models/kits/knights/res_well.gltf",
+      "size": [
+        1.757,
+        2.923,
+        1.788
+      ],
+      "tris": 1251
     }
   }
 }

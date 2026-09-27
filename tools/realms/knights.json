@@ -218,6 +218,16 @@
       "id": "kn_bld_turret",
       "fbx": "SM_Bld_Wooden_Tower_01",
       "atlas": true
+    },
+    {
+      "id": "res_ore_gold",
+      "fbx": "SM_Prop_Ore_Gold_01",
+      "atlas": true
+    },
+    {
+      "id": "res_well",
+      "fbx": "SM_Prop_Well_01",
+      "atlas": true
     }
   ]
 }

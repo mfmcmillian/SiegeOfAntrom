@@ -75,12 +75,12 @@ export const RESOURCE_DEFINITIONS: Record<ResourceKind, ResourceDefinition> = {
     hoverText: 'Harvest crystal'
   },
   gas: {
-    name: 'Plasma Vent',
+    name: 'Mana Well',
     amount: 1500,
     placementY: 0,
-    colliderScale: Vector3.create(2.4, 1.8, 2.4),
+    colliderScale: Vector3.create(2.0, 2.4, 2.0),
     audioClipUrl: ASSETS.plasmaSound,
-    hoverText: 'Siphon plasma'
+    hoverText: 'Draw mana'
   }
 }
 

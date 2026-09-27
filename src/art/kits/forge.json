@@ -1,0 +1,44 @@
+{
+  "realm": "forge",
+  "textures": {
+    "floor": "models/kits/forge/floor.png"
+  },
+  "pieces": {
+    "res_crystals_a": {
+      "src": "models/kits/forge/res_crystals_a.gltf",
+      "size": [
+        5.648,
+        7.492,
+        3.863
+      ],
+      "tris": 212
+    },
+    "res_crystals_b": {
+      "src": "models/kits/forge/res_crystals_b.gltf",
+      "size": [
+        4.723,
+        7.03,
+        4.055
+      ],
+      "tris": 246
+    },
+    "res_shrine": {
+      "src": "models/kits/forge/res_shrine.gltf",
+      "size": [
+        7.835,
+        9.826,
+        7.893
+      ],
+      "tris": 1508
+    },
+    "res_ore_pile": {
+      "src": "models/kits/forge/res_ore_pile.gltf",
+      "size": [
+        5.374,
+        0.917,
+        5.307
+      ],
+      "tris": 1399
+    }
+  }
+}

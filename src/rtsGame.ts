@@ -2133,7 +2133,7 @@ function spawnResourceFields(): void {
     const definition = RESOURCE_DEFINITIONS[field.kind]
     for (const position of generateFieldPositions(field, fieldIndex)) {
       counters[field.kind] += 1
-      const baseName = field.rich ? (field.kind === 'minerals' ? 'Gold Vein' : 'Cryo Vent') : definition.name
+      const baseName = field.rich ? (field.kind === 'minerals' ? 'Gold Vein' : 'Moonwell') : definition.name
       resources.push(createResourceNode(field.kind, `${baseName} ${counters[field.kind]}`, position, field.rich === true))
     }
   })
@@ -5528,7 +5528,7 @@ function formatCost(cost: ResourceCost): string {
   const parts = []
 
   if (cost.minerals) parts.push(`${cost.minerals} crystal`)
-  if (cost.gas) parts.push(`${cost.gas} plasma`)
+  if (cost.gas) parts.push(`${cost.gas} mana`)
   return parts.length > 0 ? parts.join(', ') : '0 resources'
 }
 

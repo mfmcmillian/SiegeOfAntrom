@@ -78,7 +78,7 @@ export const gameState = {
   selectedId: '',
   selectedKind: '' as SelectableKind | '',
   selectedUnitIds: [] as string[],
-  status: 'Select a worker, then click a crystal vein or plasma vent.',
+  status: 'Select a worker, then click a crystal vein or mana well.',
   // Transient prompt: the status line fades out after a few seconds.
   statusTimer: 0,
   attackAlert: '',

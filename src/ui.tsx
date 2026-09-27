@@ -1238,7 +1238,7 @@ function getCommandSlots(selected: SelectedSummary): CommandSlot[] {
       icon: unitIcon('worker'),
       name: `Train ${worker.name}`,
       cost: worker.cost,
-      description: 'Gathers crystal and plasma, builds and repairs structures.',
+      description: 'Gathers crystal and mana, builds and repairs structures.',
       onClick: queueWorker
     })
     slots.push({

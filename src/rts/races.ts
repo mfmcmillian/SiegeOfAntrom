@@ -245,6 +245,6 @@ export function pickRandomRace(): RaceId {
 export function formatRaceCost(cost: ResourceCost): string {
   const parts: string[] = []
   if (cost.minerals) parts.push(`${cost.minerals} crystal`)
-  if (cost.gas) parts.push(`${cost.gas} plasma`)
+  if (cost.gas) parts.push(`${cost.gas} mana`)
   return parts.join(' / ')
 }

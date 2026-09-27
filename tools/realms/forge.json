@@ -184,6 +184,26 @@
     {
       "id": "forge_statue",
       "fbx": "SM_Env_Statue_01"
+    },
+    {
+      "id": "res_crystals_a",
+      "fbx": "SM_Env_Crystals_Cluster_Large_01",
+      "atlas": true
+    },
+    {
+      "id": "res_crystals_b",
+      "fbx": "SM_Env_Crystals_Cluster_Large_02",
+      "atlas": true
+    },
+    {
+      "id": "res_shrine",
+      "fbx": "SM_Env_Shrine_01",
+      "atlas": true
+    },
+    {
+      "id": "res_ore_pile",
+      "fbx": "SM_Env_Ore_Pile_01",
+      "atlas": true
     }
   ]
 }
