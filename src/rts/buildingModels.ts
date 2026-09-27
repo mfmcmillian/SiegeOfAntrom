@@ -43,25 +43,27 @@ const GLB_BUILDINGS: Record<RaceId, Partial<Record<BuildableKind, GlbBuilding>>>
     fireplace: { src: 'models/kits/knights/kn_bld_beacon.gltf', scale: uniform(4.5), size: [0.554, 0.593, 0.554] },
     turret: { src: 'models/kits/knights/kn_bld_turret.gltf', scale: uniform(0.65), size: [4.267, 6.658, 3.583] }
   },
+  // Elves: Elven Realm pieces (tools/realms/elves.json).
   alien: {
-    temple: { src: 'models/buildings/alien/temple.glb', scale: Vector3.create(1.45, 1, 1.45) },
-    supplyHouse: { src: 'models/buildings/alien/supplyHouse.glb' },
-    barracks: { src: 'models/buildings/alien/barracks.glb' },
-    techLab: { src: 'models/buildings/alien/techLab.glb' },
-    forge: { src: 'models/buildings/alien/forge.glb' },
-    airForge: { src: 'models/buildings/alien/airForge.glb' },
-    fireplace: { src: 'models/buildings/alien/fireplace.glb' },
-    turret: { src: 'models/buildings/alien/turret.glb' }
+    temple: { src: 'models/kits/elves/el_bld_temple.gltf', scale: uniform(0.85), size: [7.961, 13.472, 7.007] },
+    supplyHouse: { src: 'models/kits/elves/el_bld_supply.gltf', scale: uniform(1.3), size: [2.844, 5.168, 2.77] },
+    barracks: { src: 'models/kits/elves/el_bld_barracks.gltf', scale: uniform(1.15), size: [5.056, 4.481, 5.056] },
+    techLab: { src: 'models/kits/elves/el_bld_fountain.gltf', scale: uniform(0.86), size: [6.403, 6.612, 6.403] },
+    forge: { src: 'models/kits/elves/el_bld_forge.gltf', scale: uniform(0.75), size: [5.95, 9.92, 5.95] },
+    airForge: { src: 'models/kits/elves/el_bld_siegeyard.gltf', scale: uniform(1.07), size: [4.671, 4.44, 3.258] },
+    fireplace: { src: 'models/kits/elves/el_bld_beacon.gltf', scale: uniform(1.1), size: [2.181, 3.001, 2.281] },
+    turret: { src: 'models/kits/elves/el_bld_turret.gltf', scale: uniform(1.9), size: [1.554, 1.898, 1.008] }
   },
+  // Undead: Dark Fantasy pieces (tools/realms/undead.json).
   bio: {
-    temple: { src: 'models/buildings/bio/temple.glb' },
-    supplyHouse: { src: 'models/buildings/bio/supplyHouse.glb' },
-    barracks: { src: 'models/buildings/bio/barracks.glb' },
-    techLab: { src: 'models/buildings/bio/techLab.glb' },
-    forge: { src: 'models/buildings/bio/forge.glb' },
-    airForge: { src: 'models/buildings/bio/airForge.glb' },
-    fireplace: { src: 'models/buildings/bio/fireplace.glb' },
-    turret: { src: 'models/buildings/bio/turret.glb' }
+    temple: { src: 'models/kits/undead/ud_bld_temple.gltf', scale: uniform(1.9), size: [4.725, 5.77, 5.072] },
+    supplyHouse: { src: 'models/kits/undead/ud_bld_supply.gltf', scale: uniform(2.0), size: [1.356, 1.77, 2.616] },
+    barracks: { src: 'models/kits/undead/ud_bld_crypt2.gltf', scale: uniform(1.15), size: [4.725, 6.292, 5.072] },
+    techLab: { src: 'models/kits/undead/ud_bld_techlab.gltf', scale: uniform(1.15), size: [4.728, 4.847, 4.607] },
+    forge: { src: 'models/kits/undead/ud_bld_forge.gltf', scale: uniform(1.2), size: [3.749, 4.344, 3.355] },
+    airForge: { src: 'models/kits/undead/ud_bld_siegeyard.gltf', scale: uniform(0.8), size: [6.13, 4.293, 2.15] },
+    fireplace: { src: 'models/kits/undead/ud_bld_beacon.gltf', scale: uniform(0.45), size: [5.756, 2.702, 5.83] },
+    turret: { src: 'models/kits/undead/ud_bld_turret.gltf', scale: uniform(1.3), size: [2.449, 1.633, 1.087] }
   }
 }
 

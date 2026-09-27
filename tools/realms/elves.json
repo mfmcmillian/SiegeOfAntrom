@@ -1,0 +1,44 @@
+{
+  "realm": "elves",
+  "pack": "POLYGON_ElvenRealm_Unity_2022_3_v1_6_2.zip",
+  "textures": {
+    "atlas": "Textures/Alts/PolygonElven_01_A.png",
+    "emissive": "Textures/Emissive/PolygonElven_01_A_Emissive.png",
+    "tiling": "Textures/Rock_Wall_01.png",
+    "floor": "Textures/Grass_01.png"
+  },
+  "modules": [
+    {
+      "id": "el_bld_temple",
+      "fbx": "SM_Env_Tree_Glowing_01"
+    },
+    {
+      "id": "el_bld_supply",
+      "fbx": "SM_Prop_Garden_Hut_01"
+    },
+    {
+      "id": "el_bld_barracks",
+      "fbx": "SM_Bld_Gazebo_01"
+    },
+    {
+      "id": "el_bld_forge",
+      "fbx": "SM_Bld_Gazebo_02"
+    },
+    {
+      "id": "el_bld_siegeyard",
+      "fbx": "SM_Prop_Tent_01"
+    },
+    {
+      "id": "el_bld_beacon",
+      "fbx": "SM_Prop_Magic_Well_01"
+    },
+    {
+      "id": "el_bld_turret",
+      "fbx": "SM_Prop_Statue_01"
+    },
+    {
+      "id": "el_bld_fountain",
+      "fbx": "SM_Prop_Fountain_01"
+    }
+  ]
+}

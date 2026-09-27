@@ -1,0 +1,80 @@
+{
+  "realm": "elves",
+  "textures": {
+    "floor": "models/kits/elves/floor.png"
+  },
+  "pieces": {
+    "el_bld_temple": {
+      "src": "models/kits/elves/el_bld_temple.gltf",
+      "size": [
+        7.961,
+        13.472,
+        7.007
+      ],
+      "tris": 5416
+    },
+    "el_bld_supply": {
+      "src": "models/kits/elves/el_bld_supply.gltf",
+      "size": [
+        2.844,
+        5.168,
+        2.77
+      ],
+      "tris": 8083
+    },
+    "el_bld_barracks": {
+      "src": "models/kits/elves/el_bld_barracks.gltf",
+      "size": [
+        5.056,
+        4.481,
+        5.056
+      ],
+      "tris": 7732
+    },
+    "el_bld_forge": {
+      "src": "models/kits/elves/el_bld_forge.gltf",
+      "size": [
+        5.95,
+        9.92,
+        5.95
+      ],
+      "tris": 6516
+    },
+    "el_bld_siegeyard": {
+      "src": "models/kits/elves/el_bld_siegeyard.gltf",
+      "size": [
+        4.671,
+        4.44,
+        3.258
+      ],
+      "tris": 7262
+    },
+    "el_bld_beacon": {
+      "src": "models/kits/elves/el_bld_beacon.gltf",
+      "size": [
+        2.181,
+        3.001,
+        2.281
+      ],
+      "tris": 1530
+    },
+    "el_bld_turret": {
+      "src": "models/kits/elves/el_bld_turret.gltf",
+      "size": [
+        1.554,
+        1.898,
+        1.008
+      ],
+      "tris": 5734
+    },
+    "el_bld_fountain": {
+      "src": "models/kits/elves/el_bld_fountain.gltf",
+      "size": [
+        6.403,
+        6.612,
+        6.403
+      ],
+      "tris": 10822
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "realm": "undead",
+  "pack": "POLYGON_Dark_Fantasy_Unity_2022_3_v1_4_1.zip",
+  "textures": {
+    "atlas": "Textures/Alts/PolygonDarkFantasy_01_A.png",
+    "emissive": "Textures/Emissive/PolygonDarkFantasy_01_A_Emissive.png",
+    "tiling": "Textures/Brick_Large_01.png",
+    "floor": "Textures/Floor_Tiles_01.png"
+  },
+  "modules": [
+    {
+      "id": "ud_bld_temple",
+      "fbx": "SM_Prop_Crypt_01"
+    },
+    {
+      "id": "ud_bld_crypt2",
+      "fbx": "SM_Prop_Crypt_02"
+    },
+    {
+      "id": "ud_bld_supply",
+      "fbx": "SM_Prop_Tomb_01"
+    },
+    {
+      "id": "ud_bld_techlab",
+      "fbx": "SM_Bld_Ruin_02"
+    },
+    {
+      "id": "ud_bld_forge",
+      "fbx": "SM_Prop_Shed_01"
+    },
+    {
+      "id": "ud_bld_siegeyard",
+      "fbx": "SM_Prop_Gallows_01"
+    },
+    {
+      "id": "ud_bld_beacon",
+      "fbx": "SM_Prop_Pyre_01"
+    },
+    {
+      "id": "ud_bld_turret",
+      "fbx": "SM_Prop_Gargoyle_Statue_01"
+    }
+  ]
+}

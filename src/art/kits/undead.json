@@ -1,0 +1,80 @@
+{
+  "realm": "undead",
+  "textures": {
+    "floor": "models/kits/undead/floor.png"
+  },
+  "pieces": {
+    "ud_bld_temple": {
+      "src": "models/kits/undead/ud_bld_temple.gltf",
+      "size": [
+        4.725,
+        5.77,
+        5.072
+      ],
+      "tris": 8439
+    },
+    "ud_bld_crypt2": {
+      "src": "models/kits/undead/ud_bld_crypt2.gltf",
+      "size": [
+        4.725,
+        6.292,
+        5.072
+      ],
+      "tris": 6440
+    },
+    "ud_bld_supply": {
+      "src": "models/kits/undead/ud_bld_supply.gltf",
+      "size": [
+        1.356,
+        1.77,
+        2.616
+      ],
+      "tris": 4620
+    },
+    "ud_bld_techlab": {
+      "src": "models/kits/undead/ud_bld_techlab.gltf",
+      "size": [
+        4.728,
+        4.847,
+        4.607
+      ],
+      "tris": 2870
+    },
+    "ud_bld_forge": {
+      "src": "models/kits/undead/ud_bld_forge.gltf",
+      "size": [
+        3.749,
+        4.344,
+        3.355
+      ],
+      "tris": 5473
+    },
+    "ud_bld_siegeyard": {
+      "src": "models/kits/undead/ud_bld_siegeyard.gltf",
+      "size": [
+        6.13,
+        4.293,
+        2.15
+      ],
+      "tris": 1071
+    },
+    "ud_bld_beacon": {
+      "src": "models/kits/undead/ud_bld_beacon.gltf",
+      "size": [
+        5.756,
+        2.702,
+        5.83
+      ],
+      "tris": 7908
+    },
+    "ud_bld_turret": {
+      "src": "models/kits/undead/ud_bld_turret.gltf",
+      "size": [
+        2.449,
+        1.633,
+        1.087
+      ],
+      "tris": 6022
+    }
+  }
+}
