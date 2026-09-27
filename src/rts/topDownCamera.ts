@@ -12,6 +12,7 @@ import {
 } from '@dcl/sdk/ecs'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import { SCENE } from './config'
+import { getPointerYFromTop } from './pointer'
 
 const TOP_DOWN_HEIGHT = 26
 // Near-vertical RTS pitch. The camera no longer drives avatar movement, so it can look
@@ -137,9 +138,11 @@ function getEdgeScrollDirection(): { x: number; z: number } {
   let z = 0
   if (coordinates.x <= EDGE_SCROLL_MARGIN) x -= 1
   if (coordinates.x >= canvas.width - EDGE_SCROLL_MARGIN) x += 1
-  // Pointer Y is measured from the bottom of the screen.
-  if (coordinates.y <= EDGE_SCROLL_MARGIN) z -= 1
-  if (coordinates.y >= canvas.height - EDGE_SCROLL_MARGIN) z += 1
+  const yFromTop = getPointerYFromTop()
+  if (yFromTop !== null) {
+    if (yFromTop <= EDGE_SCROLL_MARGIN) z += 1
+    if (yFromTop >= canvas.height - EDGE_SCROLL_MARGIN) z -= 1
+  }
 
   return { x, z }
 }

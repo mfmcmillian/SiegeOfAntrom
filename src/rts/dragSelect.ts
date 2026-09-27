@@ -1,5 +1,6 @@
 import { InputAction, PrimaryPointerInfo, Transform, UiCanvasInformation, engine, inputSystem } from '@dcl/sdk/ecs'
 import { isPointerOverHud } from './hud'
+import { getPointerYFromTop } from './pointer'
 
 export type DragSelectDeps = {
   /** Returns true while other click-driven modes own the pointer (placement, move/attack command). */
@@ -83,9 +84,9 @@ export function getDragScreenRect(virtualWidth: number, virtualHeight: number): 
   const scaleX = virtualWidth / canvas.width
   const scaleY = virtualHeight / canvas.height
 
-  // Pointer Y is measured from the bottom of the screen; UI "top" from the top.
-  const startYFromTop = canvas.height - startScreen.y
-  const currentYFromTop = canvas.height - currentScreen.y
+  // Both points are stored top-origin already (see pointer.ts).
+  const startYFromTop = startScreen.y
+  const currentYFromTop = currentScreen.y
 
   const left = Math.min(startScreen.x, currentScreen.x) * scaleX
   const top = Math.min(startYFromTop, currentYFromTop) * scaleY
@@ -102,10 +103,12 @@ function resetDragState(): void {
   startGround = null
 }
 
+/** Cursor in physical pixels, Y from the top of the screen. */
 function getPointerScreenPosition(): ScreenPoint | null {
   const info = PrimaryPointerInfo.getOrNull(engine.RootEntity)
-  if (!info?.screenCoordinates) return null
-  return { x: info.screenCoordinates.x, y: info.screenCoordinates.y }
+  const yFromTop = getPointerYFromTop()
+  if (!info?.screenCoordinates || yFromTop === null) return null
+  return { x: info.screenCoordinates.x, y: yFromTop }
 }
 
 /** Intersects the cursor's world ray with the ground plane (y = 0). */

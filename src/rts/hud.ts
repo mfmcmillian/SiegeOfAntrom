@@ -1,4 +1,5 @@
 import { PrimaryPointerInfo, UiCanvasInformation, engine } from '@dcl/sdk/ecs'
+import { getPointerYFromTop } from './pointer'
 
 // Screen regions owned by the HUD, in the UI's virtual resolution. World input
 // (unit selection, move commands, placement clicks, drag select) checks this so
@@ -13,10 +14,11 @@ export function isPointerOverHud(): boolean {
   const info = PrimaryPointerInfo.getOrNull(engine.RootEntity)
   const canvas = UiCanvasInformation.getOrNull(engine.RootEntity)
   const coordinates = info?.screenCoordinates
-  if (!coordinates || !canvas || canvas.width === 0 || canvas.height === 0) return false
+  const pointerYFromTop = getPointerYFromTop()
+  if (!coordinates || !canvas || canvas.width === 0 || canvas.height === 0 || pointerYFromTop === null) return false
 
   const x = coordinates.x * (VIRTUAL_WIDTH / canvas.width)
-  const yFromTop = (canvas.height - coordinates.y) * (VIRTUAL_HEIGHT / canvas.height)
+  const yFromTop = pointerYFromTop * (VIRTUAL_HEIGHT / canvas.height)
 
   // Bottom console bar (info panel, command card, minimap).
   if (yFromTop >= VIRTUAL_HEIGHT - CONSOLE_HEIGHT) return true

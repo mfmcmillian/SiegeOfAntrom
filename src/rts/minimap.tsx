@@ -1,6 +1,7 @@
 import { PrimaryPointerInfo, Transform, UiCanvasInformation, engine } from '@dcl/sdk/ecs'
 import { Color4 } from '@dcl/sdk/math'
 import ReactEcs, { UiEntity } from '@dcl/sdk/react-ecs'
+import { getPointerYFromTop } from './pointer'
 import { SCENE } from './config'
 import { FOG_GRID_SIZE, getFogCellState, isPositionExplored, isPositionVisibleToPlayer } from './fogOfWar'
 import { getMapById, islandHalfX, islandHalfZ } from './maps'
@@ -184,11 +185,12 @@ function jumpCameraToClickedPoint(): void {
   const info = PrimaryPointerInfo.getOrNull(engine.RootEntity)
   const canvas = UiCanvasInformation.getOrNull(engine.RootEntity)
   const coordinates = info?.screenCoordinates
-  if (!coordinates || !canvas || canvas.width === 0 || canvas.height === 0) return
+  const pointerYFromTop = getPointerYFromTop()
+  if (!coordinates || !canvas || canvas.width === 0 || canvas.height === 0 || pointerYFromTop === null) return
 
-  // Physical pixels -> UI virtual coordinates (pointer Y is bottom-origin, UI top is top-origin).
+  // Physical pixels -> UI virtual coordinates (top-origin, see pointer.ts).
   const virtualX = coordinates.x * (VIRTUAL_WIDTH / canvas.width)
-  const virtualYFromTop = (canvas.height - coordinates.y) * (VIRTUAL_HEIGHT / canvas.height)
+  const virtualYFromTop = pointerYFromTop * (VIRTUAL_HEIGHT / canvas.height)
 
   const mapLeft = VIRTUAL_WIDTH - PANEL_RIGHT - BORDER - MAP_SIZE
   const mapTop = VIRTUAL_HEIGHT - PANEL_BOTTOM - BORDER - MAP_SIZE
