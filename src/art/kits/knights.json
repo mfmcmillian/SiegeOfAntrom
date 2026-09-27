@@ -412,6 +412,156 @@
         1.788
       ],
       "tris": 1251
+    },
+    "env_cliff": {
+      "src": "models/kits/knights/env_cliff.gltf",
+      "size": [
+        9.103,
+        18.473,
+        9.765
+      ],
+      "tris": 968,
+      "collide": false
+    },
+    "env_pines": {
+      "src": "models/kits/knights/env_pines.gltf",
+      "size": [
+        9.91,
+        23.193,
+        10.056
+      ],
+      "tris": 1220,
+      "collide": false
+    },
+    "env_rocks": {
+      "src": "models/kits/knights/env_rocks.gltf",
+      "size": [
+        1.669,
+        1.268,
+        1.888
+      ],
+      "tris": 82,
+      "collide": false
+    },
+    "env_tree_dead": {
+      "src": "models/kits/knights/env_tree_dead.gltf",
+      "size": [
+        1.41,
+        8.986,
+        1.589
+      ],
+      "tris": 140,
+      "collide": false
+    },
+    "env_rock_big": {
+      "src": "models/kits/knights/env_rock_big.gltf",
+      "size": [
+        0.387,
+        0.288,
+        0.405
+      ],
+      "tris": 64,
+      "collide": false
+    },
+    "env_statue": {
+      "src": "models/kits/knights/env_statue.gltf",
+      "size": [
+        1.237,
+        2.738,
+        0.859
+      ],
+      "tris": 4605,
+      "collide": false
+    },
+    "env_cart": {
+      "src": "models/kits/knights/env_cart.gltf",
+      "size": [
+        2.284,
+        1.178,
+        3.578
+      ],
+      "tris": 2841,
+      "collide": false
+    },
+    "env_siege_fallen": {
+      "src": "models/kits/knights/env_siege_fallen.gltf",
+      "size": [
+        6.553,
+        6.499,
+        20.076
+      ],
+      "tris": 16601,
+      "collide": false
+    },
+    "env_crates": {
+      "src": "models/kits/knights/env_crates.gltf",
+      "size": [
+        3.25,
+        2.142,
+        1.219
+      ],
+      "tris": 2824,
+      "collide": false
+    },
+    "env_grass": {
+      "src": "models/kits/knights/env_grass.gltf",
+      "size": [
+        0.471,
+        0.869,
+        0.478
+      ],
+      "tris": 88,
+      "collide": false
+    },
+    "env_flowers": {
+      "src": "models/kits/knights/env_flowers.gltf",
+      "size": [
+        1.041,
+        0.745,
+        1.477
+      ],
+      "tris": 363,
+      "collide": false
+    },
+    "env_hedge": {
+      "src": "models/kits/knights/env_hedge.gltf",
+      "size": [
+        5.031,
+        1.414,
+        1.047
+      ],
+      "tris": 164,
+      "collide": false
+    },
+    "env_tree_thin": {
+      "src": "models/kits/knights/env_tree_thin.gltf",
+      "size": [
+        1.198,
+        3.741,
+        1.356
+      ],
+      "tris": 106,
+      "collide": false
+    },
+    "env_pines2": {
+      "src": "models/kits/knights/env_pines2.gltf",
+      "size": [
+        15.171,
+        25.451,
+        10.855
+      ],
+      "tris": 1254,
+      "collide": false
+    },
+    "env_ruin2": {
+      "src": "models/kits/knights/env_ruin2.gltf",
+      "size": [
+        5.514,
+        4.756,
+        1.946
+      ],
+      "tris": 3008,
+      "collide": false
     }
   }
 }

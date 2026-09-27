@@ -228,6 +228,96 @@
       "id": "res_well",
       "fbx": "SM_Prop_Well_01",
       "atlas": true
+    },
+    {
+      "id": "env_cliff",
+      "fbx": "SM_Env_Rock_Cliff_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_pines",
+      "fbx": "SM_Env_Tree_Pine_Cluster_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rocks",
+      "fbx": "SM_Env_Rock_Chunk_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_tree_dead",
+      "fbx": "SM_Env_Tree_Dead_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rock_big",
+      "fbx": "SM_Env_Rock_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_statue",
+      "fbx": "SM_Prop_Statue_Knight_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_cart",
+      "fbx": "SM_Veh_Cart_Damaged_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_siege_fallen",
+      "fbx": "SM_Wep_Siege_Tower_Fallen_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_crates",
+      "fbx": "SM_Prop_Crate_Stack_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_grass",
+      "fbx": "SM_Env_Grass_Tuft_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_flowers",
+      "fbx": "SM_Env_Flowers_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_hedge",
+      "fbx": "SM_Env_Hedge_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_tree_thin",
+      "fbx": "SM_Env_Tree_Thin_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_pines2",
+      "fbx": "SM_Env_Tree_Pine_Cluster_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_ruin2",
+      "fbx": "SM_Env_Structure_02",
+      "atlas": true,
+      "collide": false
     }
   ]
 }

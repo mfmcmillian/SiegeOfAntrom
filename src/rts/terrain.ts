@@ -20,7 +20,7 @@ export function setClassicTerrainVisible(visible: boolean): void {
 
 // Terrain pass: one textured ground sheet, large tinted decals that break the
 // tiling and mark zones (center basin, worn tracks between the bases), border
-// highlands hiding the floor-to-skybox seam, landmark craters and wreck props.
+// highlands hiding the floor-to-skybox seam, landmark clearings and ruin props.
 // The playable field stays flat: pathing, placement and fog of war all assume
 // y = 0, so height only lives at the map borders and in decoration.
 
@@ -41,26 +41,30 @@ const GROUND_Y = 0.02
 const DECAL_Y = { patch: 0.04, patchStep: 0.004, basin: 0.08, sideTrack: 0.095, track: 0.105, craterFloor: 0.13 }
 
 // ---------------------------------------------------------------------------
-// Prop library (Meshy GLBs). footprint/height/minY are the measured bounds of
-// each file (they arrive normalized to a ~1.9m cube with a center pivot);
-// placeProp() uses them to scale to world size and drop the base onto y=0.
+// Prop library: Synty Fantasy Kingdom pieces exported through tools/realms/knights.json
+// (base on y=0, XZ-centred; footprint/height are the measured glTF bounds in metres).
+// placeProp() scales them to world size. The slot names still describe the layout job
+// each prop does, not its look: `mesa` is the border cliff, `spire` the pine stand.
 // ---------------------------------------------------------------------------
 
 type PropDef = { src: string; footprint: number; height: number; minY: number }
 
 const PROPS = {
-  mesa: { src: 'models/props/prop-mesa.glb', footprint: 1.89, height: 1.07, minY: -0.54 },
-  spire: { src: 'models/props/prop-spire.glb', footprint: 1.12, height: 1.9, minY: -0.95 },
-  boulders: { src: 'models/props/prop-boulder-cluster.glb', footprint: 1.9, height: 0.86, minY: -0.43 },
-  craterRim: { src: 'models/props/prop-crater-rim.glb', footprint: 1.9, height: 0.31, minY: -0.16 },
-  crystals: { src: 'models/props/prop-crystal-cluster.glb', footprint: 1.9, height: 1.72, minY: -0.86 },
-  meteorite: { src: 'models/props/prop-meteorite.glb', footprint: 1.85, height: 1.9, minY: -0.95 },
-  monolith: { src: 'models/props/prop-monolith.glb', footprint: 0.86, height: 1.9, minY: -0.95 },
-  rover: { src: 'models/props/prop-rover.glb', footprint: 1.9, height: 0.94, minY: -0.47 },
-  satellite: { src: 'models/props/prop-satellite-wreck.glb', footprint: 1.89, height: 1.12, minY: -0.56 },
-  ship: { src: 'models/props/prop-crashed-ship.glb', footprint: 1.9, height: 0.48, minY: -0.24 },
-  crate: { src: 'models/props/prop-supply-crate.glb', footprint: 1.9, height: 1.29, minY: -0.65 },
-  vent: { src: 'models/props/prop-volcanic-vent.glb', footprint: 1.9, height: 1.12, minY: -0.56 }
+  mesa: { src: 'models/kits/knights/env_cliff.gltf', footprint: 9.765, height: 18.473, minY: 0 },
+  spire: { src: 'models/kits/knights/env_pines.gltf', footprint: 10.056, height: 23.193, minY: 0 },
+  spireB: { src: 'models/kits/knights/env_pines2.gltf', footprint: 15.171, height: 25.451, minY: 0 },
+  boulders: { src: 'models/kits/knights/env_rocks.gltf', footprint: 1.888, height: 1.268, minY: 0 },
+  craterRim: { src: 'models/kits/knights/env_hedge.gltf', footprint: 5.031, height: 1.414, minY: 0 },
+  crystals: { src: 'models/kits/knights/env_tree_thin.gltf', footprint: 1.356, height: 3.741, minY: 0 },
+  meteorite: { src: 'models/kits/knights/env_rock_big.gltf', footprint: 0.405, height: 0.288, minY: 0 },
+  monolith: { src: 'models/kits/knights/env_statue.gltf', footprint: 1.237, height: 2.738, minY: 0 },
+  rover: { src: 'models/kits/knights/env_cart.gltf', footprint: 3.578, height: 1.178, minY: 0 },
+  satellite: { src: 'models/kits/knights/env_siege_fallen.gltf', footprint: 20.076, height: 6.499, minY: 0 },
+  ship: { src: 'models/kits/knights/env_ruin2.gltf', footprint: 5.514, height: 4.756, minY: 0 },
+  crate: { src: 'models/kits/knights/env_crates.gltf', footprint: 3.25, height: 2.142, minY: 0 },
+  vent: { src: 'models/kits/knights/env_tree_dead.gltf', footprint: 1.589, height: 8.986, minY: 0 },
+  grass: { src: 'models/kits/knights/env_grass.gltf', footprint: 0.478, height: 0.869, minY: 0 },
+  flowers: { src: 'models/kits/knights/env_flowers.gltf', footprint: 1.477, height: 0.745, minY: 0 }
 } satisfies Record<string, PropDef>
 
 /** Spawns a prop scaled uniformly, base resting on the ground (sink > 0 buries it). */
@@ -287,10 +291,10 @@ function createMesaCluster(x: number, z: number, height: number): void {
   if (random() < 0.65) {
     const spireHeight = height * (1 + random() * 0.7)
     placeProp(
-      PROPS.spire,
+      random() < 0.5 ? PROPS.spire : PROPS.spireB,
       x + (random() - 0.5) * height * 1.4,
       z + (random() - 0.5) * height * 1.4,
-      scaleForHeight(PROPS.spire, spireHeight),
+      spireHeight / PROPS.spire.height,
       random() * 360,
       spireHeight * 0.03
     )
@@ -354,18 +358,18 @@ function createLandmarkCraters(): void {
 // ---------------------------------------------------------------------------
 
 function createLandmarks(): void {
-  // Crashed cargo ship half-buried in the north-west crater.
-  placeProp(PROPS.ship, 38, 104, 16 / PROPS.ship.footprint, 205, 0.35)
-  // Downed satellite in the south-east crater.
-  placeProp(PROPS.satellite, 122, 56, 9 / PROPS.satellite.footprint, 40, 0.25)
-  // Meteorites embedded in the two small craters that (visually) made them.
-  placeProp(PROPS.meteorite, 58, 34, scaleForHeight(PROPS.meteorite, 2.4), random() * 360, 1)
-  placeProp(PROPS.meteorite, 102, 126, scaleForHeight(PROPS.meteorite, 2.2), random() * 360, 0.9)
-  // Ancient monolith watching over the contested center from the basin's edge.
+  // Burnt-out timber hall frame in the north-west clearing.
+  placeProp(PROPS.ship, 38, 104, 8 / PROPS.ship.footprint, 205, 0.05)
+  // Fallen siege tower in the south-east clearing, left from the last war.
+  placeProp(PROPS.satellite, 122, 56, 9 / PROPS.satellite.footprint, 40, 0.05)
+  // Standing boulders in the two small hollows.
+  placeProp(PROPS.meteorite, 58, 34, scaleForHeight(PROPS.meteorite, 2.4), random() * 360, 0.3)
+  placeProp(PROPS.meteorite, 102, 126, scaleForHeight(PROPS.meteorite, 2.2), random() * 360, 0.25)
+  // Statue of the old king watching over the contested center from the basin's edge.
   placeProp(PROPS.monolith, 93, 93, scaleForHeight(PROPS.monolith, 7), 25)
-  // Abandoned rover just off the main lane, as if it never finished the trip.
+  // Wrecked cart just off the main lane, as if it never finished the trip.
   placeProp(PROPS.rover, 54, 44, scaleForHeight(PROPS.rover, 2), 130)
-  // Supply drops tucked behind each temple against the map edge, out of the
+  // Supply crates tucked behind each keep against the map edge, out of the
   // mining routes and build space.
   placeProp(PROPS.crate, 2.2, 12.5, scaleForHeight(PROPS.crate, 1.1), 15)
   placeProp(PROPS.crate, 3.6, 10.8, scaleForHeight(PROPS.crate, 0.85), 70)
@@ -374,10 +378,9 @@ function createLandmarks(): void {
 }
 
 // ---------------------------------------------------------------------------
-// Border accents: crystal growth and volcanic vents along the highland ring,
-// far from anything harvestable or walkable. Nothing decorative sits next to
-// resource nodes anymore - vents by geysers and crystals by mineral lines both
-// read as gameplay objects from the RTS camera.
+// Border accents: lone trees and dead trunks along the highland ring, far from
+// anything harvestable or walkable so nothing decorative reads as a resource
+// node from the RTS camera.
 // ---------------------------------------------------------------------------
 
 function createBorderAccents(): void {
@@ -392,16 +395,16 @@ function createBorderAccents(): void {
     const z = edge === 0 ? inset : edge === 1 ? SCENE.size - inset : alongEdge
     if (!isClearOfGameplay(x, z, 4)) continue
     if (placed % 3 === 2) {
-      placeProp(PROPS.vent, x, z, scaleForHeight(PROPS.vent, 1.3 + random() * 0.7), random() * 360, 0.08)
+      placeProp(PROPS.vent, x, z, scaleForHeight(PROPS.vent, 3.5 + random() * 2), random() * 360, 0.05)
     } else {
-      placeProp(PROPS.crystals, x, z, scaleForHeight(PROPS.crystals, 0.9 + random() * 1), random() * 360, 0.1)
+      placeProp(PROPS.crystals, x, z, scaleForHeight(PROPS.crystals, 4.5 + random() * 3), random() * 360, 0.05)
     }
     placed++
   }
 }
 
 // ---------------------------------------------------------------------------
-// Small surface detail (boulders, dust discs, debris).
+// Small surface detail (rocks, worn earth patches, grass and flowers).
 // ---------------------------------------------------------------------------
 
 function scatterSurfaceDetail(): void {
@@ -416,14 +419,13 @@ function scatterSurfaceDetail(): void {
     const roll = random()
 
     if (roll < 0.28) {
-      // Loose rock pile - only in dead space, spread out. No glowing meteorites
-      // in the open field: they pull the eye harder than actual units do.
+      // Loose rocks - only in dead space, spread out.
       if (!isClearOfGameplay(x, z, 2)) continue
       if (placedProps.some((prop) => (prop.x - x) ** 2 + (prop.z - z) ** 2 < MIN_PROP_SPACING ** 2)) continue
       placedProps.push({ x, z })
       placeProp(PROPS.boulders, x, z, scaleForHeight(PROPS.boulders, 0.3 + random() * 0.4), random() * 360)
     } else if (roll < 0.72) {
-      // Small dust crater.
+      // Worn earth patch.
       const entity = trackTerrainEntity(engine.addEntity())
       const size = 1.2 + random() * 2.4
       Transform.create(entity, {
@@ -432,30 +434,17 @@ function scatterSurfaceDetail(): void {
       })
       MeshRenderer.setCylinder(entity)
       Material.setPbrMaterial(entity, {
-        albedoColor: Color4.create(0.33, 0.33, 0.39, 1),
+        albedoColor: Color4.create(0.36, 0.33, 0.22, 1),
         metallic: 0,
         roughness: 1,
         specularIntensity: 0,
         castShadows: false
       })
     } else {
-      // Glowing crystal shard. Never near a real mineral line - a cyan glow
-      // beside harvestable crystals would read as one more resource node.
+      // Grass tufts and the odd flower patch; never on top of a resource line.
       if (isProtected(x, z, 3)) continue
-      const entity = trackTerrainEntity(engine.addEntity())
-      const height = 0.25 + random() * 0.45
-      Transform.create(entity, {
-        position: Vector3.create(x, height / 2, z),
-        rotation: Quaternion.fromEulerDegrees(random() * 18 - 9, random() * 360, random() * 18 - 9),
-        scale: Vector3.create(0.12 + random() * 0.1, height, 0.12 + random() * 0.1)
-      })
-      MeshRenderer.setBox(entity)
-      Material.setPbrMaterial(entity, {
-        albedoColor: Color4.create(0.12, 0.55, 0.62, 1),
-        emissiveColor: Color4.create(0.12, 0.65, 0.75, 1),
-        emissiveIntensity: 1,
-        castShadows: false
-      })
+      const prop = random() < 0.25 ? PROPS.flowers : PROPS.grass
+      placeProp(prop, x, z, 0.8 + random() * 0.8, random() * 360)
     }
   }
 }
