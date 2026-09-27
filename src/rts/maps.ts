@@ -249,7 +249,7 @@ export const MAPS: MapDefinition[] = [
     anchors: MAP_ANCHORS,
     fields: RESOURCE_FIELDS,
     // Siege of Antrom: the Crown is green highland now, not lunar regolith.
-    visuals: { theme: 'bloom', ground: 'assets/textures/grass_ground.png' }
+    visuals: { theme: 'bloom', ground: 'assets/textures/crown_ground.png' }
   },
   {
     id: 'islands',

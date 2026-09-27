@@ -58,6 +58,8 @@ const MINIMAP_COLORS = {
   reliquaryGround: Color4.create(0.22, 0.2, 0.18, 1),
   reliquaryRock: Color4.create(0.42, 0.34, 0.26, 1),
   bloomGround: Color4.create(0.42, 0.22, 0.1, 1),
+  // The Crown's Synty grass tile (olive, flat-shaded).
+  crownGround: Color4.create(0.36, 0.42, 0.24, 1),
   bloomRock: Color4.create(0.55, 0.28, 0.12, 1),
   infernoWater: Color4.create(0.55, 0.12, 0.04, 1),
   infernoLand: Color4.create(0.16, 0.14, 0.13, 1),
@@ -210,7 +212,9 @@ function jumpCameraToClickedPoint(): void {
  * basin, and the landmark craters, so the minimap matches the actual map.
  */
 function minimapGroundColor(): Color4 {
-  const theme = getMapById(gameState.selectedMapId).visuals?.theme
+  const map = getMapById(gameState.selectedMapId)
+  const theme = map.visuals?.theme
+  if (map.visuals?.ground === 'assets/textures/crown_ground.png') return MINIMAP_COLORS.crownGround
   if (theme === 'reliquary') return MINIMAP_COLORS.reliquaryGround
   if (theme === 'ashen') return MINIMAP_COLORS.ashenLand
   if (theme === 'bloom') return MINIMAP_COLORS.bloomGround
