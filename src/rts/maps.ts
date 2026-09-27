@@ -243,13 +243,14 @@ const RELIQUARIES_FIELDS: ResourceField[] = [
 export const MAPS: MapDefinition[] = [
   {
     id: 'shattered-crown',
-    name: 'Shattered Crown',
-    tagline: '6 starts on the rim, each with its own natural. Rich gold crystal and cryo plasma at the contested center.',
+    name: 'The Crown',
+    tagline: '6 starts on the rim of the Crown Mountains, each with its own natural. Rich crystal and a mana well at the contested center.',
     thumbnail: 'images/maps/shattered-crown.jpg',
     maxPlayers: 6,
     anchors: MAP_ANCHORS,
     fields: RESOURCE_FIELDS,
-    visuals: { theme: 'moon', ground: 'assets/textures/moon_ground.png' }
+    // Siege of Antrom: the Crown is green highland now, not lunar regolith.
+    visuals: { theme: 'bloom', ground: 'assets/textures/grass_ground.png' }
   },
   {
     id: 'islands',
