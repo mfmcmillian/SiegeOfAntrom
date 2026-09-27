@@ -1,0 +1,27 @@
+{
+  "kn-knight": {
+    "path": "models/units/knights/kn-knight.gltf",
+    "height": 1.926,
+    "tris": 3480
+  },
+  "kn-soldier": {
+    "path": "models/units/knights/kn-soldier.gltf",
+    "height": 1.879,
+    "tris": 2487
+  },
+  "kn-soldier-b": {
+    "path": "models/units/knights/kn-soldier-b.gltf",
+    "height": 1.837,
+    "tris": 3128
+  },
+  "kn-knight-b": {
+    "path": "models/units/knights/kn-knight-b.gltf",
+    "height": 1.845,
+    "tris": 2840
+  },
+  "kn-knight-c": {
+    "path": "models/units/knights/kn-knight-c.gltf",
+    "height": 1.884,
+    "tris": 2848
+  }
+}
