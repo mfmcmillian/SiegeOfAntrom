@@ -1,6 +1,7 @@
 import { Transform } from '@dcl/sdk/ecs'
 import { BUILDING_DEFINITIONS, SCENE } from '../config'
 import { isGroundWalkable } from '../maps'
+import { nearestWalkable } from '../obstacles'
 import type { BuildableKind, Soldier, Worker } from '../types'
 import { buildings, soldiers, workers } from '../world'
 
@@ -117,7 +118,8 @@ export function clampPointOutsideBuildings(point: { x: number; z: number }): { x
     x = blocker.x + outX * (bound + 0.1)
     z = blocker.z + outZ * (bound + 0.1)
   }
-  return { x, z }
+  // Likewise a point clicked into a forest or river becomes its nearest bank.
+  return nearestWalkable(x, z)
 }
 
 export function updateUnitSeparation(dt: number): void {

@@ -7,7 +7,7 @@ import { FOG_GRID_SIZE, getFogCellState, isPositionExplored, isPositionVisibleTo
 import { getMapById, islandHalfX, islandHalfZ } from './maps'
 import { gameState, isHostileToPlayer } from './state'
 import type { EnemyTeam, Team } from './types'
-import { BASIN_PATCHES, CRATERS } from './terrain'
+import { CROSSINGS, FORESTS, HAMLETS, HAMLET_HOUSE_RADIUS, OUTCROPS, RIVERS, RIVER_WIDTH, RUIN_TOWERS, RUIN_WALLS, crossingHalfWidth } from './crownLayout'
 import { getCameraFocus, isTopDownViewActive, setCameraFocus } from './topDownCamera'
 import { buildings, getTeam, resources, soldiers, workers } from './world'
 
@@ -58,8 +58,12 @@ const MINIMAP_COLORS = {
   reliquaryGround: Color4.create(0.22, 0.2, 0.18, 1),
   reliquaryRock: Color4.create(0.42, 0.34, 0.26, 1),
   bloomGround: Color4.create(0.42, 0.22, 0.1, 1),
-  // The Crown's Synty grass tile (olive, flat-shaded).
+  // The Crown's Synty grass tile (olive, flat-shaded) and its landmarks.
   crownGround: Color4.create(0.36, 0.42, 0.24, 1),
+  crownWater: Color4.create(0.3, 0.5, 0.72, 1),
+  crownRoad: Color4.create(0.6, 0.52, 0.38, 1),
+  crownForest: Color4.create(0.16, 0.3, 0.16, 1),
+  crownStone: Color4.create(0.5, 0.5, 0.55, 1),
   bloomRock: Color4.create(0.55, 0.28, 0.12, 1),
   infernoWater: Color4.create(0.55, 0.12, 0.04, 1),
   infernoLand: Color4.create(0.16, 0.14, 0.13, 1),
@@ -272,13 +276,39 @@ function terrainLayer() {
     <UiEntity key="rim-e" uiTransform={{ positionType: 'absolute', position: { left: MAP_SIZE - RIM, top: RIM }, width: RIM, height: MAP_SIZE - RIM * 2 }} uiBackground={{ color: rock }} />
   ]
 
-  // Crown-only landmarks. Other solid maps keep a clean field so the dots read the layout.
+  // The Crown's rivers, crossings, forests and the old keep, so the minimap reads the lanes.
   if (map.id === 'shattered-crown') {
-    for (let i = 0; i < BASIN_PATCHES.length; i++) {
-      elements.push(terrainRect(`basin-${i}`, BASIN_PATCHES[i].x, BASIN_PATCHES[i].z, BASIN_PATCHES[i].size, MINIMAP_COLORS.groundDark))
+    for (let r = 0; r < RIVERS.length; r++) {
+      const river = RIVERS[r]
+      for (let i = 0; i + 1 < river.length; i++) {
+        const a = river[i]
+        const b = river[i + 1]
+        const steps = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / 3))
+        for (let k = 0; k < steps; k++) {
+          const t = k / steps
+          elements.push(terrainRect(`river-${r}-${i}-${k}`, a.x + (b.x - a.x) * t, a.z + (b.z - a.z) * t, RIVER_WIDTH, MINIMAP_COLORS.crownWater))
+        }
+      }
     }
-    for (let i = 0; i < CRATERS.length; i++) {
-      elements.push(terrainRect(`crater-${i}`, CRATERS[i].x, CRATERS[i].z, CRATERS[i].radius * 2, MINIMAP_COLORS.groundDark))
+    for (let i = 0; i < CROSSINGS.length; i++) {
+      const c = CROSSINGS[i]
+      elements.push(terrainRectSized(`ford-${i}`, c.x, c.z, crossingHalfWidth(c) * 2 * MAP_SCALE, (RIVER_WIDTH + 2) * MAP_SCALE, MINIMAP_COLORS.crownRoad))
+    }
+    for (let i = 0; i < FORESTS.length; i++) {
+      elements.push(terrainRect(`forest-${i}`, FORESTS[i].x, FORESTS[i].z, FORESTS[i].r * 2, MINIMAP_COLORS.crownForest))
+    }
+    for (let i = 0; i < OUTCROPS.length; i++) {
+      elements.push(terrainRect(`outcrop-${i}`, OUTCROPS[i].x, OUTCROPS[i].z, OUTCROPS[i].r * 2, rock))
+    }
+    for (let i = 0; i < RUIN_WALLS.length; i++) {
+      const w = RUIN_WALLS[i]
+      elements.push(terrainRectSized(`wall-${i}`, w.x, w.z, Math.max(2, w.hx * 2 * MAP_SCALE), w.hz * 2 * MAP_SCALE, MINIMAP_COLORS.crownStone))
+    }
+    for (let i = 0; i < RUIN_TOWERS.length; i++) {
+      elements.push(terrainRect(`tower-${i}`, RUIN_TOWERS[i].x, RUIN_TOWERS[i].z, RUIN_TOWERS[i].r * 2, MINIMAP_COLORS.crownStone))
+    }
+    for (let i = 0; i < HAMLETS.length; i++) {
+      elements.push(terrainRect(`hamlet-${i}`, HAMLETS[i].x, HAMLETS[i].z, HAMLET_HOUSE_RADIUS * 1.6, MINIMAP_COLORS.crownStone))
     }
   }
   return elements

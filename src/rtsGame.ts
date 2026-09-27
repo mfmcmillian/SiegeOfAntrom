@@ -32,13 +32,14 @@ import {
   TURRET_STATS
 } from './rts/config'
 import { getMapById, isGroundWalkable, isSameIsland, setActiveIslands } from './rts/maps'
+import { nearestWalkable, setActiveObstacles } from './rts/obstacles'
 import {
   campaignOpponentsFor,
   formatSurviveClock,
   getCampaignMission,
   markCampaignMissionComplete
 } from './rts/campaign'
-import { applyMapAppearance, clearIslandTerrain } from './rts/islandTerrain'
+import { applyMapAppearance, clearMapTerrain } from './rts/islandTerrain'
 import {
   getCargoCount,
   getCargoUnits,
@@ -77,7 +78,7 @@ import {
   type RallyMarker
 } from './rts/entities'
 import { formatNumber, formatPosition, formatVectorForPaste } from './rts/format'
-import { clamp, cloneVector, distanceToPoint, distanceToPosition, getFormationPosition, offsetSpawn } from './rts/math'
+import { clamp, cloneVector, distanceToPoint, distanceToPosition, getFormationPosition, offsetSpawn, resetPathCache } from './rts/math'
 import { ENEMY_TEAMS, areHostile, gameState, isHostileToPlayer, isPlayerAlly, resetTeamStats } from './rts/state'
 import { updateSoldiers as updateSoldiersSystem } from './rts/systems/combat'
 import { updateHealers } from './rts/systems/healers'
@@ -1557,9 +1558,11 @@ function clearMatchWorld(): void {
   clearHealthBars()
   resetFogOfWar()
 
-  // Back to solid ground until the next match decides otherwise.
+  // Back to open solid ground until the next match decides otherwise.
   setActiveIslands(undefined)
-  clearIslandTerrain()
+  setActiveObstacles(undefined)
+  resetPathCache()
+  clearMapTerrain()
 }
 
 export function resetRtsGame(): void {
@@ -1573,6 +1576,7 @@ export function resetRtsGame(): void {
   // visuals to floating islands before anything spawns.
   const map = getMapById(gameState.selectedMapId)
   setActiveIslands(map.islands)
+  setActiveObstacles(map.obstacles)
   applyMapAppearance(map)
 
   createStartingBase()
@@ -3254,7 +3258,10 @@ function isPointerPressOnSelectable(): boolean {
  * same spot to upgrade that order to attack-move. The first click is never
  * delayed: the second click just replaces it.
  */
-function handleGroundClickOrder(point: { x: number; z: number }): void {
+function handleGroundClickOrder(clicked: { x: number; z: number }): void {
+  // A click into a forest or river walks the group to its nearest bank instead
+  // of grinding against the tree line forever.
+  const point = nearestWalkable(clicked.x, clicked.z)
   if (isShiftDown()) {
     lastGroundOrderTime = 0
     moveSelectedUnitsTo(point)

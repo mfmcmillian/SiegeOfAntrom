@@ -4,6 +4,7 @@ import { SCENE } from './config'
 import { setEnvironmentTheme } from './environment'
 import { islandHalfX, islandHalfZ, type IslandZone, type MapDefinition, type MapVisuals } from './maps'
 import { setClassicGroundTexture, setClassicTerrainVisible } from './terrain'
+import { buildCrownTerrain, clearCrownTerrain } from './crownTerrain'
 
 // ---------------------------------------------------------------------------
 // Island-map terrain: hides the classic battlefield and paints an ocean
@@ -152,10 +153,17 @@ function spawn(): Entity {
 /** Apply the map's ground, water and horizon. Call at every match start. */
 export function applyMapAppearance(map: MapDefinition): void {
   if (map.islands) {
+    clearCrownTerrain()
     buildIslandTerrain(map.islands, map.visuals)
     return
   }
   clearIslandTerrain()
+  if (map.id === 'shattered-crown') {
+    // The Crown has its own hand-built battlefield (rivers, forests, the old keep).
+    buildCrownTerrain()
+    return
+  }
+  clearCrownTerrain()
   setEnvironmentTheme(map.visuals?.theme ?? 'moon')
   setClassicGroundTexture(map.visuals?.ground ?? DEFAULT_MOON_GROUND)
 }
@@ -178,6 +186,12 @@ export function clearIslandTerrain(): void {
   for (const entity of entities) engine.removeEntity(entity)
   entities.length = 0
   setClassicTerrainVisible(true)
+}
+
+/** Every match-specific battlefield overlay (islands, the Crown) torn down. */
+export function clearMapTerrain(): void {
+  clearIslandTerrain()
+  clearCrownTerrain()
 }
 
 /** The sea: a water sheet covering the whole map under the islands. */

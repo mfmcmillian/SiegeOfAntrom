@@ -395,6 +395,12 @@ for module in manifest['modules']:
         bpy.ops.object.join()
     obj = bpy.context.view_layer.objects.active
     obj.name = out_name
+    if module.get('normals'):
+        # Some Synty foliage ships with inward-facing normals and renders black; point them outward.
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.mesh.select_all(action='SELECT')
+        bpy.ops.mesh.normals_make_consistent(inside=False)
+        bpy.ops.object.mode_set(mode='OBJECT')
     if module.get('bake'):
         bake_piece(obj, out_name, module['bake'])
     elif module.get('leaf'):

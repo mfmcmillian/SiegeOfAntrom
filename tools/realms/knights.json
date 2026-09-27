@@ -318,6 +318,633 @@
       "fbx": "SM_Env_Structure_02",
       "atlas": true,
       "collide": false
+    },
+    {
+      "id": "env_tree_large",
+      "fbx": "SM_Env_Tree_Large_01",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_tree_large2",
+      "fbx": "SM_Env_Tree_Large_02",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_tree_round",
+      "fbx": "SM_Env_Tree_Round_01",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_tree_round2",
+      "fbx": "SM_Env_Tree_Round_02",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_tree_round3",
+      "fbx": "SM_Env_Tree_Round_03",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_pines3",
+      "fbx": "SM_Env_Tree_Pine_Cluster_04",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_pines4",
+      "fbx": "SM_Env_Tree_Pine_Cluster_05",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_tree_thin2",
+      "fbx": "SM_Env_Tree_Thin_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_tree_dead2",
+      "fbx": "SM_Env_Tree_Dead_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_bush",
+      "fbx": "SM_Env_Bush_01",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_bush2",
+      "fbx": "SM_Env_Bush_03",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_bush_cluster",
+      "fbx": "SM_Env_Bush_Cluster_01",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_bush_flowers",
+      "fbx": "SM_Env_Bush_Flowers_01",
+      "atlas": true,
+      "collide": false,
+      "normals": true
+    },
+    {
+      "id": "env_fern",
+      "fbx": "SM_Env_Fern_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_reeds",
+      "fbx": "SM_Env_Reeds_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_reeds2",
+      "fbx": "SM_Env_Reeds_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_lily",
+      "fbx": "SM_Env_Lily_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_grass2",
+      "fbx": "SM_Env_Grass_Tuft_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_flowers2",
+      "fbx": "SM_Env_Flowers_05",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_flowers3",
+      "fbx": "SM_Env_Flowers_12",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_sunflower",
+      "fbx": "SM_Env_Sunflower_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_cliff2",
+      "fbx": "SM_Env_Rock_Cliff_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_cliff3",
+      "fbx": "SM_Env_Rock_Cliff_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_cliff4",
+      "fbx": "SM_Env_Rock_Cliff_04",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rock1",
+      "fbx": "SM_Env_Rock_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rock3",
+      "fbx": "SM_Env_Rock_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rock4",
+      "fbx": "SM_Env_Rock_04",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rock_chunk2",
+      "fbx": "SM_Env_Rock_Chunk_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_rock_chunk3",
+      "fbx": "SM_Env_Rock_Chunk_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_river_edge",
+      "fbx": "SM_Env_River_Edge_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_river_edge2",
+      "fbx": "SM_Env_River_Edge_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_bridge_stone",
+      "fbx": "SM_Env_Bridge_Stone_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_bridge_stone_path",
+      "fbx": "SM_Env_Bridge_Stone_Path_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_bridge",
+      "fbx": "SM_Bld_Bridge_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_bridge_railing",
+      "fbx": "SM_Bld_Bridge_Railing_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_path_rocks",
+      "fbx": "SM_Prop_Path_Rock_Group_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_path_rocks2",
+      "fbx": "SM_Prop_Path_Rock_Group_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_path_step",
+      "fbx": "SM_Prop_Path_Step_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_stonewall",
+      "fbx": "SM_Env_StoneWall_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_stonewall2",
+      "fbx": "SM_Env_StoneWall_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_stonewall3",
+      "fbx": "SM_Env_StoneWall_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_stonewall_pillar",
+      "fbx": "SM_Env_StoneWall_Pillar_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_structure",
+      "fbx": "SM_Env_Structure_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_structure3",
+      "fbx": "SM_Env_Structure_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_structure_stairs",
+      "fbx": "SM_Env_Structure_Stairs_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "castle_ruin_bottom",
+      "fbx": "SM_Bld_Castle_DestroyedWall_Bottom_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "castle_ruin_middle",
+      "fbx": "SM_Bld_Castle_DestroyedWall_Middle_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "castle_ruin_top",
+      "fbx": "SM_Bld_Castle_DestroyedWall_Top_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "castle_ruin_rubble",
+      "fbx": "SM_Bld_Castle_DestroyedWall_RubblePile_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "castle_ruin_block",
+      "fbx": "SM_Bld_Castle_DestroyedWall_RubbleBlock_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_statue_hero",
+      "fbx": "SM_Prop_Statue_Hero_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_statue_angel",
+      "fbx": "SM_Prop_Statue_Angel_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_statue_plinth",
+      "fbx": "SM_Prop_Statue_Plinth_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_fountain",
+      "fbx": "SM_Env_Fountain_Statue_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_torch",
+      "fbx": "SM_Prop_Torch_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_banner",
+      "fbx": "SM_Prop_Banner_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_flag_pole",
+      "fbx": "SM_Prop_Flag_Pole_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_gallows",
+      "fbx": "SM_Prop_Gallows_Single_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_house_ruin",
+      "fbx": "SM_Prop_Destroyed_House_Preset_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_house_ruin2",
+      "fbx": "SM_Prop_Destroyed_House_Preset_02",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_hut",
+      "fbx": "SM_Bld_Preset_Hut_01_Optimized",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_hut2",
+      "fbx": "SM_Bld_Preset_Hut_02_Optimized",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_house",
+      "fbx": "SM_Bld_Preset_House_01_A_Optimized",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_house2",
+      "fbx": "SM_Bld_Preset_House_05_Optimized",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_windmill",
+      "fbx": "SM_Bld_Preset_House_Windmill_01_Optimized",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_shelter",
+      "fbx": "SM_Bld_Preset_Shelter_02_Optimized",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_fence",
+      "fbx": "SM_Prop_Fence_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_fence2",
+      "fbx": "SM_Prop_Fence_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_fence_gate",
+      "fbx": "SM_Prop_Fence_Gate_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_hay_bale",
+      "fbx": "SM_Prop_Hay_Bale_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_hay_cart",
+      "fbx": "SM_Prop_Hay_Cart_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_hay_pile",
+      "fbx": "SM_Prop_Hay_Pile_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_farm_row",
+      "fbx": "SM_Env_Ground_Farm_Row_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_farm_row2",
+      "fbx": "SM_Env_Ground_Farm_Row_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_wood_pile",
+      "fbx": "SM_Prop_Wood_Pile_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_barrel_stack",
+      "fbx": "SM_Prop_Barrel_Stack_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_log",
+      "fbx": "SM_Prop_Log_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_market_stall",
+      "fbx": "SM_Prop_Market_Stall_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_cage_cart",
+      "fbx": "SM_Prop_Cage_Cart_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_tent_large_burnt",
+      "fbx": "SM_Bld_Tent_Large_01_Burnt",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_tent_round_burnt",
+      "fbx": "SM_Bld_Tent_Round_01_Burnt",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_tent_small",
+      "fbx": "SM_Bld_Tent_Small_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_tent_open",
+      "fbx": "SM_Bld_Tent_Open_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "bld_tent_round",
+      "fbx": "SM_Bld_Tent_Round_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_camp_firepit",
+      "fbx": "SM_Prop_Camp_Firepit_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_camp_brazier",
+      "fbx": "SM_Prop_Camp_Brazier_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_camp_rack",
+      "fbx": "SM_Prop_Camp_Weapon_Rack_Spears_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_barrel_arrows",
+      "fbx": "SM_Prop_Barrel_Arrows_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_battle_banner",
+      "fbx": "SM_Prop_Battle_Banner_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_battle_banner2",
+      "fbx": "SM_Prop_Battle_Banner_03",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_battle_bramble",
+      "fbx": "SM_Prop_Battle_Bramble_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_battle_cross",
+      "fbx": "SM_Prop_Battle_Cross_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_knight",
+      "fbx": "SM_Prop_Dead_Knight_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_knight2",
+      "fbx": "SM_Prop_Dead_Knight_05",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_horse",
+      "fbx": "SM_Prop_Dead_Horse_01_Arrow_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_horse2",
+      "fbx": "SM_Prop_Dead_Horse_02_Spear_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_soldier",
+      "fbx": "SM_Prop_Dead_Soldier_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_pile",
+      "fbx": "SM_Prop_Dead_Body_Pile_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "prop_dead_troll",
+      "fbx": "SM_Prop_Dead_Troll_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_siege_tower",
+      "fbx": "SM_Wep_Siege_Tower_01_Static",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_siege_ramp",
+      "fbx": "SM_Wep_Siege_Tower_Ramp_01_Static",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_cart2",
+      "fbx": "SM_Veh_Cart_Damaged_01",
+      "atlas": true,
+      "collide": false
+    },
+    {
+      "id": "env_crater",
+      "fbx": "SM_Env_Ground_Crater_01",
+      "atlas": true,
+      "collide": false
     }
   ]
 }

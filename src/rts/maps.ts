@@ -1,5 +1,7 @@
 import { MAP_ANCHORS, RESOURCE_FIELDS, ResourceField } from './config'
 import { Vector3 } from '@dcl/sdk/math'
+import { hasObstacles, isPointBlocked, type ObstacleSet } from './obstacles'
+import { CROWN_OBSTACLES } from './crownLayout'
 
 // Map registry: groundwork for multiple battlegrounds. Every map bundles its
 // base anchors and resource layout; the match setup screen and the MP lobby
@@ -42,6 +44,11 @@ export type MapDefinition = {
    * crossing the void takes a transport (or wings). Omitted = solid ground.
    */
   islands?: IslandZone[]
+  /**
+   * Solid-ground maps with impassable terrain (forests, rivers, ruins). Ground
+   * units path around these; flyers ignore them. Omitted = open field.
+   */
+  obstacles?: ObstacleSet
   /** Ground, water and horizon pack. Omitted maps use the classic moon look. */
   visuals?: MapVisuals
   /** Hidden from the skirmish / lobby cycle. Campaign can still pick it. */
@@ -249,6 +256,8 @@ export const MAPS: MapDefinition[] = [
     anchors: MAP_ANCHORS,
     fields: RESOURCE_FIELDS,
     // Siege of Antrom: the Crown is green highland now, not lunar regolith.
+    // Two rivers, forests and the old king's ruin shape the lanes (crownLayout.ts).
+    obstacles: CROWN_OBSTACLES,
     visuals: { theme: 'bloom', ground: 'assets/textures/crown_ground.png' }
   },
   {
@@ -398,8 +407,12 @@ export function isIslandMap(): boolean {
   return activeIslands !== undefined
 }
 
-/** Can a ground unit stand here? Solid-ground maps: always yes. Island maps: box test per zone. */
+/**
+ * Can a ground unit stand here? Solid-ground maps: yes unless the map declares
+ * obstacles (forests, rivers) covering the point. Island maps: box test per zone.
+ */
 export function isGroundWalkable(x: number, z: number): boolean {
+  if (hasObstacles()) return !isPointBlocked(x, z)
   if (!activeIslands) return true
   return activeIslands.some((island) => pointInIsland(island, x, z, EDGE_MARGIN))
 }
