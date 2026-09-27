@@ -1,5 +1,4 @@
 import { MAP_ANCHORS, RESOURCE_FIELDS, ResourceField } from './config'
-import { FLAGS } from './races'
 import { Vector3 } from '@dcl/sdk/math'
 
 // Map registry: groundwork for multiple battlegrounds. Every map bundles its
@@ -336,8 +335,7 @@ export const MAPS: MapDefinition[] = [
 export const DEFAULT_MAP_ID = MAPS[0].id
 
 export function getLobbyMaps(): MapDefinition[] {
-  // Island maps need transports to leave home, so they sit out while the air roster is off.
-  return MAPS.filter((map) => !map.campaignOnly && (FLAGS.air || !map.islands))
+  return MAPS.filter((map) => !map.campaignOnly)
 }
 
 export function getMapById(id: string | undefined): MapDefinition {

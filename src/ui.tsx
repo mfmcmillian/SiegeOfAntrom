@@ -1501,7 +1501,7 @@ function getBuildingDescription(kind: BuildableKind): string {
   if (kind === 'techLab')
     return FLAGS.air
       ? `Tier 2 production: ${race.caster.name}s, ${race.flyer.name}s, ${race.siege.name}s and ${race.titan.name}s.`
-      : `Tier 2 structure: unlocks the ${race.caster.name} and the siege workshop.`
+      : `Tier 2 production: ${race.caster.name}s and ${race.transport.name}s. Unlocks the siege workshop.`
   if (kind === 'forge') return 'Researches ground Weapons and Propulsion upgrades. Unlocks the titan.'
   if (kind === 'airForge')
     return FLAGS.air

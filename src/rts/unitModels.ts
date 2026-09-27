@@ -280,7 +280,9 @@ const GLB_UNITS: Partial<Record<RaceId, Partial<Record<UnitRole, GlbUnit>>>> = {
     // Meshy vehicles came out facing -X (glTF), which mirrors to +X in DCL's
     // left-handed space; -90 yaw turns them onto the game's +Z forward.
     flyer: { src: 'models/units/human/flyer.glb', yaw: -90, topY: 0.75 },
-    transport: { src: 'models/units/human/transport.glb', yaw: -90, topY: 1.5 },
+    // Boats ride the water instead of flying: the Knights' longship, the Elves' canopy
+    // boat and the Undead funeral barge are Synty vehicles exported through the realm kits.
+    transport: { src: 'models/kits/vik/vik_longship.gltf', yaw: 0, topY: 9.38, scale: 0.4 },
     heavyAir: { src: 'models/units/human/heavyAir.glb', yaw: -90, topY: 1.6 }
   },
   // `alien` is the Elves faction (Synty Elven Realm characters).
@@ -289,7 +291,7 @@ const GLB_UNITS: Partial<Record<RaceId, Partial<Record<UnitRole, GlbUnit>>>> = {
     antiAir: { src: 'models/units/alien/antiAir.glb', yaw: 0, topY: 1.45 },
     // Zephyr and Solar Ark fly apex-first along Z already; the barge is X-aligned.
     flyer: { src: 'models/units/alien/flyer.glb', yaw: 0, topY: 0.9 },
-    transport: { src: 'models/units/alien/transport.glb', yaw: -90, topY: 1.4 },
+    transport: { src: 'models/kits/elves/el_boat.gltf', yaw: 0, topY: 18.1, scale: 0.3 },
     heavyAir: { src: 'models/units/alien/heavyAir.glb', yaw: 0, topY: 2.55 }
   },
   // `bio` is the Undead faction (Synty Dark Fantasy characters).
@@ -300,7 +302,7 @@ const GLB_UNITS: Partial<Record<RaceId, Partial<Record<UnitRole, GlbUnit>>>> = {
     // which DCL's import flip turns into -Z; 180 puts the skull on the game's
     // +Z forward. The broodwing jellyfish is radially symmetric so yaw is moot.
     flyer: { src: 'models/units/bio/flyer.glb', yaw: 180, topY: 1.4 },
-    transport: { src: 'models/units/bio/transport.glb', yaw: 0, topY: 2.6 },
+    transport: { src: 'models/kits/vik/vik_funeral_boat.gltf', yaw: 0, topY: 2.3, scale: 0.65 },
     heavyAir: { src: 'models/units/bio/heavyAir.glb', yaw: 0, topY: 2.4 }
   }
 }
@@ -361,9 +363,10 @@ function buildGlbUnit(rig: UnitRig, config: GlbUnit, race: RaceId, role: UnitRol
     rig.profiles = glbProfiles(role)
   }
 
-  // Hover altitudes for air units, lifted a touch since the craft grew.
+  // Hover altitudes for air units, lifted a touch since the craft grew. Transports are
+  // boats now, so they sit on the water line (the sea plane is at y=0.02).
   if (role === 'flyer') rig.baseHeight = 2.4
-  else if (role === 'transport') rig.baseHeight = 2.7
+  else if (role === 'transport') rig.baseHeight = 0.12
   else if (role === 'heavyAir') rig.baseHeight = 3.6
 
   // Siege mode still grows a deployed cannon while dug in, flavored per race:

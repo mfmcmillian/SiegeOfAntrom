@@ -1,0 +1,24 @@
+{
+  "realm": "vik",
+  "textures": {},
+  "pieces": {
+    "vik_longship": {
+      "src": "models/kits/vik/vik_longship.gltf",
+      "size": [
+        7.02,
+        9.384,
+        15.252
+      ],
+      "tris": 9864
+    },
+    "vik_funeral_boat": {
+      "src": "models/kits/vik/vik_funeral_boat.gltf",
+      "size": [
+        2.463,
+        2.315,
+        9.021
+      ],
+      "tris": 8175
+    }
+  }
+}

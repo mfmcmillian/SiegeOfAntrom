@@ -75,6 +75,15 @@
         6.403
       ],
       "tris": 10822
+    },
+    "el_boat": {
+      "src": "models/kits/elves/el_boat.gltf",
+      "size": [
+        7.352,
+        18.145,
+        20.42
+      ],
+      "tris": 10948
     }
   }
 }

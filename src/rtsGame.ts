@@ -2964,7 +2964,7 @@ function assignSoldierToAttack(soldier: Soldier, target: Building | Soldier | Wo
       setStatus(
         soldier.variant === 'antiAir'
           ? `${soldier.name} only attacks airborne targets.`
-          : `${soldier.name} can't reach ${target.name}: only ranged weapons hit air.`
+          : `${soldier.name} can't reach ${target.name}: only ranged weapons hit ${target.kind === 'soldier' && target.variant === 'transport' ? 'boats on the water' : 'air'}.`
       )
     }
     return
@@ -3009,7 +3009,7 @@ function assignWorkerToAttack(worker: Worker, target: Building | Soldier | Worke
   if (worker.state === 'movingToBuild' || worker.state === 'constructing' || worker.state === 'movingToRepair' || worker.state === 'repairing') return
   // Workers fight in close quarters and cannot reach airborne units.
   if (!canAttackTarget(worker, target)) {
-    if (getTeam(worker) === 'player') setStatus(`${worker.name} can't reach ${target.name}: only ranged weapons hit air.`)
+    if (getTeam(worker) === 'player') setStatus(`${worker.name} can't reach ${target.name}: only ranged weapons hit ${target.kind === 'soldier' && target.variant === 'transport' ? 'boats on the water' : 'air'}.`)
     return
   }
 

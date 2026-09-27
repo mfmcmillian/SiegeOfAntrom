@@ -257,7 +257,7 @@ function queueEnemyAdvancedProduction(ai: EnemyAi): void {
 
   // Island maps: a small carrier fleet comes before anything fancy, or the
   // ground army can never leave home (expanders keep a spare for colonizing).
-  if (FLAGS.air && isIslandMap()) {
+  if (isVariantEnabled('transport') && isIslandMap()) {
     const wantTransports = ai.settings.expands ? 3 : 2
     const transportCount =
       soldiers.filter((soldier) => soldier.alive && getTeam(soldier) === team && soldier.variant === 'transport').length +

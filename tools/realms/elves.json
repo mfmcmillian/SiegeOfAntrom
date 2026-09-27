@@ -39,6 +39,11 @@
     {
       "id": "el_bld_fountain",
       "fbx": "SM_Prop_Fountain_01"
+    },
+    {
+      "id": "el_boat",
+      "fbx": "SM_Veh_Boat_01",
+      "atlas": true
     }
   ]
 }

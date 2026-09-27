@@ -65,7 +65,7 @@ export const RACES: Record<RaceId, RaceDefinition> = {
     caster: { name: 'Court Mage', hp: 60, damage: 14, moveSpeed: 2.7, attackRange: 7, attackRate: 1.7, splashRadius: 2.8, cost: { minerals: 100, gas: 100 }, productionTime: 3.5, supply: 2 },
     antiAir: { name: 'Crossbowman', hp: 70, damage: 16, moveSpeed: 3.1, attackRange: 8, attackRate: 1.1, cost: { minerals: 75, gas: 25 }, productionTime: 2.4, supply: 1 },
     flyer: { name: 'Gryphon Rider', hp: 90, damage: 12, moveSpeed: 4.2, attackRange: 6.5, attackRate: 0.9, cost: { minerals: 120, gas: 80 }, productionTime: 3.5, supply: 2 },
-    transport: { name: 'Sky Barge', hp: 160, damage: 0, moveSpeed: 3.6, attackRange: 0, cost: { minerals: 150, gas: 75 }, productionTime: 4, supply: 2 },
+    transport: { name: 'Longship', hp: 160, damage: 0, moveSpeed: 3.6, attackRange: 0, cost: { minerals: 150, gas: 75 }, productionTime: 4, supply: 2 },
     heavyAir: { name: 'War Dragon', hp: 340, damage: 26, moveSpeed: 2.5, attackRange: 7, attackRate: 1.6, splashRadius: 1.8, cost: { minerals: 300, gas: 200 }, productionTime: 8, supply: 4 },
     siege: { name: 'Catapult', hp: 170, damage: 52, moveSpeed: 2.15, attackRange: 12.5, attackRate: 3, splashRadius: 3, cost: { minerals: 200, gas: 125 }, productionTime: 5.5, supply: 3 },
     titan: { name: 'Champion', hp: 380, damage: 40, moveSpeed: 2.2, attackRange: 2.8, attackRate: 1.7, splashRadius: 2.2, cost: { minerals: 300, gas: 200 }, productionTime: 8, supply: 4 },
@@ -95,7 +95,7 @@ export const RACES: Record<RaceId, RaceDefinition> = {
     caster: { name: 'Starweaver', hp: 70, damage: 18, moveSpeed: 2.6, attackRange: 8, attackRate: 1.9, splashRadius: 3.2, cost: { minerals: 125, gas: 125 }, productionTime: 4, supply: 2 },
     antiAir: { name: 'Moon Archer', hp: 90, damage: 20, moveSpeed: 2.9, attackRange: 8.5, attackRate: 1.3, cost: { minerals: 100, gas: 50 }, productionTime: 3, supply: 1 },
     flyer: { name: 'Hawk Rider', hp: 110, damage: 15, moveSpeed: 3.9, attackRange: 7, attackRate: 1.1, cost: { minerals: 150, gas: 100 }, productionTime: 4, supply: 2 },
-    transport: { name: 'Wind Skiff', hp: 200, damage: 0, moveSpeed: 3.3, attackRange: 0, cost: { minerals: 175, gas: 100 }, productionTime: 4.5, supply: 2 },
+    transport: { name: 'Moon Skiff', hp: 200, damage: 0, moveSpeed: 3.3, attackRange: 0, cost: { minerals: 175, gas: 100 }, productionTime: 4.5, supply: 2 },
     heavyAir: { name: 'Elder Roc', hp: 400, damage: 32, moveSpeed: 2.3, attackRange: 7.5, attackRate: 1.8, splashRadius: 2, cost: { minerals: 350, gas: 250 }, productionTime: 9, supply: 4 },
     siege: { name: 'Ballista', hp: 200, damage: 68, moveSpeed: 1.95, attackRange: 13.5, attackRate: 3.3, splashRadius: 2.6, cost: { minerals: 250, gas: 175 }, productionTime: 6.5, supply: 3 },
     titan: { name: 'Treant', hp: 450, damage: 50, moveSpeed: 2, attackRange: 3, attackRate: 1.9, splashRadius: 2.4, cost: { minerals: 350, gas: 250 }, productionTime: 9, supply: 4 },
@@ -125,7 +125,7 @@ export const RACES: Record<RaceId, RaceDefinition> = {
     caster: { name: 'Sorcerer', hp: 50, damage: 10, moveSpeed: 3, attackRange: 6, attackRate: 1.5, splashRadius: 2.6, cost: { minerals: 80, gas: 60 }, productionTime: 2.5, supply: 2 },
     antiAir: { name: 'Bone Thrower', hp: 55, damage: 12, moveSpeed: 3.5, attackRange: 7.5, attackRate: 0.9, cost: { minerals: 60, gas: 25 }, productionTime: 1.6, supply: 1 },
     flyer: { name: 'Wraith', hp: 70, damage: 9, moveSpeed: 4.5, attackRange: 5.5, attackRate: 0.8, cost: { minerals: 90, gas: 50 }, productionTime: 2.2, supply: 2 },
-    transport: { name: 'Bone Wyrm', hp: 130, damage: 0, moveSpeed: 3.9, attackRange: 0, cost: { minerals: 125, gas: 50 }, productionTime: 3, supply: 2 },
+    transport: { name: 'Funeral Barge', hp: 130, damage: 0, moveSpeed: 3.9, attackRange: 0, cost: { minerals: 125, gas: 50 }, productionTime: 3, supply: 2 },
     heavyAir: { name: 'Dread Dragon', hp: 280, damage: 20, moveSpeed: 2.7, attackRange: 6.5, attackRate: 1.3, splashRadius: 1.8, cost: { minerals: 250, gas: 150 }, productionTime: 6, supply: 4 },
     siege: { name: 'Plague Catapult', hp: 140, damage: 38, moveSpeed: 2.55, attackRange: 12, attackRate: 2.6, splashRadius: 3.4, cost: { minerals: 150, gas: 100 }, productionTime: 4, supply: 3 },
     titan: { name: 'Demon', hp: 320, damage: 30, moveSpeed: 2.6, attackRange: 2.6, attackRate: 1.5, splashRadius: 2, cost: { minerals: 250, gas: 150 }, productionTime: 6, supply: 4 },
@@ -170,23 +170,27 @@ export function getSoldierDefinition(team: Team, variant: SoldierVariant): RaceU
 }
 
 /**
- * Feature switches. `air` compiles the flying roster (flyer / transport / heavyAir and the
- * anti-air trooper) in or out. Siege of Antrom ships without it until dragon or griffin
- * packs exist; the code paths stay so air can come back by flipping this.
+ * Feature switches. `air` compiles the flying roster (flyer / heavyAir and the anti-air
+ * trooper) in or out. Siege of Antrom ships without it until dragon or griffin packs exist;
+ * the code paths stay so air can come back by flipping this. The transport stays either way:
+ * it is a boat, and the island maps need it.
  */
 export const FLAGS = {
   air: false
 }
 
 /** Variants that only exist when FLAGS.air is on. */
-export const AIR_ROSTER: SoldierVariant[] = ['antiAir', 'flyer', 'transport', 'heavyAir']
+export const AIR_ROSTER: SoldierVariant[] = ['antiAir', 'flyer', 'heavyAir']
 
 /** Whether a soldier variant can be trained or referenced in menus under the current flags. */
 export function isVariantEnabled(variant: SoldierVariant): boolean {
   return FLAGS.air || !AIR_ROSTER.includes(variant)
 }
 
-/** Airborne variants: fly over the void on island maps and only anti-air weapons reach them. */
+/**
+ * Variants that ignore island walkability: flyers cross the water in the air, the transport
+ * boat crosses it on the surface. Only ranged weapons reach any of them.
+ */
 export function isAirVariant(variant: SoldierVariant): boolean {
   return variant === 'flyer' || variant === 'transport' || variant === 'heavyAir'
 }
